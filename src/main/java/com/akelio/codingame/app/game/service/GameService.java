@@ -44,8 +44,10 @@ public class GameService extends BaseService {
 				+"B        D");
 		turnService.createTurn(turn);
 		game.setLastTurn(turn);
+		game.getTurnList().add(turn);
 	}
 
+	
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public synchronized int addNewBot(User currentUser, String gameId, String botId) {
 		Game game = findGameById(currentUser, gameId);
@@ -54,8 +56,37 @@ public class GameService extends BaseService {
 		return index;
 	}
 
+	
+	public void nextTurn(Game game) {
+		Turn turn = new Turn();
+		turn.setIndice(String.valueOf(game.getTurnList().size()+1));
+		turn.setGameId(game.getGameId());
+		turn.setAmountBot1("0");
+		turn.setAmountBot2("0");
+		turn.setAmountBot3("0");
+		turn.setAmountBot4("0");
+		turn.setData(
+				 "A        C"
+				+"          "
+				+"  4   5   "
+				+"          "
+				+"          "
+				+"          "
+				+"          "
+				+"  4   6   "
+				+"          "
+				+"B        D");
+		turnService.createTurn(turn);
+		game.setLastTurn(turn);
+		game.getTurnList().add(turn);
+	}
+
+	
 	public Game findGameById(User currentUser, String gameId) {
-		return gameDAO.findGameById(gameId);
+		List<Turn> turnList = turnService.findAllTurnForGame(gameId);
+		Game game = gameDAO.findGameById(gameId);
+		game.setTurnList(turnList);
+		return game;
 	}
 
 	public Game findGameByName(User currentUser, String gameName) {

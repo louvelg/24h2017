@@ -23,6 +23,10 @@ public class TurnDAO extends BaseDAO<Turn> {
 	public List<Turn> findAllTurn() {
 		return getList("select " + fields() + " from turn ", new TurnMapper());
 	}
+	
+	public List<Turn> findAllTurnForGame(String gameId) {
+		return getList("select " + fields() + " from turn where game_id = ?", new TurnMapper(), gameId);
+	}
 
 	public void createTurn(Turn turn) {
 		save(turn);

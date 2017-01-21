@@ -28,7 +28,6 @@ public class ClientMain {
 		String bot = Util.getValue(params, "bot", null);
 		String game = Util.getValue(params, "game", null);
 		
-		
 		if(mode.equals(MODE_CREATE))
 			createGame(host);
 		else if(mode.equals(MODE_JOIN))
@@ -63,5 +62,4 @@ public class ClientMain {
 		
 		System.out.println(res);
 	}
-
 }

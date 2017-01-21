@@ -21,21 +21,21 @@ public class BotWS extends BaseWS {
 	@Autowired
 	BotService	botService;
 	
-	// curl -i -H "Authorization: token=a9163371-790e-45ef-b800-6452698ae443" -X GET http://localhost:8080/codingame/rest/v1/bot/22
+	// curl -i -X GET http://localhost:8080/codingame/rest/v1/bot/22
 	@RequestMapping(value = "/bot/{botId}", method = RequestMethod.GET)
 	public Bot findBotById(@PathVariable String botId) {
 		Bot bot = botService.findBotById(getUser(), botId);
 		return bot;
 	}
 
-	// curl -i -H "Authorization: token=a9163371-790e-45ef-b800-6452698ae443" -X GET http://localhost:8080/codingame/rest/v1/bot/list
+	// curl -i -X GET http://localhost:8080/codingame/rest/v1/bot/list
 	@RequestMapping(value = "/bot/list", method = RequestMethod.GET)
 	public List<Bot> getBotList() {
 		List<Bot> botList = botService.findAllBot(getUser());
 		return botList;
 	}
 	
-	// curl -i -H "Authorization: token=a9163371-790e-45ef-b800-6452698ae443" -H "Content-type: application/json" -X POST http://localhost:8080/codingame/rest/v1/bot -d "{\"botId\":botId, \"name\":name}"
+	// curl -i -H "Content-type: application/json" -X POST http://localhost:8080/codingame/rest/v1/bot -d "{\"botId\":botId, \"name\":name}"
 	@RequestMapping(value = "/bot", method = RequestMethod.POST)
 	public Bot createBot(@RequestBody Bot bot) {
 		botService.createBot(getUser(), bot);

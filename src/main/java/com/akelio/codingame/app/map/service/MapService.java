@@ -36,7 +36,7 @@ public class MapService extends BaseService {
 		map.setData("");
 		int height = Integer.valueOf(map.getHeight());
 		int width = Integer.valueOf(map.getWidth());
-		
+
 		String[][] m = new String[width][height];
 		for (int i = 0; i < m.length; i++) {
 			for (int j = 0; j < m.length; j++) {
@@ -44,15 +44,20 @@ public class MapService extends BaseService {
 			}
 		}
 		m[0][0] = "B1";
-		m[height-1][0] = "B2";
-		m[0][width-1] = "B3";
-		m[height-1][width-1] = "B1";
-		
+		m[height - 1][0] = "B2";
+		m[0][width - 1] = "B3";
+		m[height - 1][width - 1] = "B1";
+
 		m[2][2] = "5";
-		m[height-3][2] = "5";
-		m[2][width-3] = "5";
-		m[height-3][width-3] = "10";
-		
+		m[height - 3][2] = "5";
+		m[2][width - 3] = "5";
+		m[height - 3][width - 3] = "10";
+
+		mapDAO.createMap(map);
+	}
+
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	public void createMap(User currentUser, Map map) {
 		mapDAO.createMap(map);
 	}
 

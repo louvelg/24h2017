@@ -15,10 +15,10 @@ import com.akelio.codingame.app.user.entity.User;
 public class GameService extends BaseService {
 
 	@Autowired
-	GameDAO	gameDAO;
+	GameDAO		gameDAO;
 	@Autowired
-	MapService mapService;
-	
+	MapService	mapService;
+
 	public Game findGameById(User currentUser, String gameId) {
 		return gameDAO.findGameById(gameId);
 	}
@@ -29,7 +29,6 @@ public class GameService extends BaseService {
 
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void createGame(User currentUser, Game game) {
-		
 		mapService.createMap(currentUser);
 		gameDAO.createGame(game);
 	}
@@ -38,11 +37,10 @@ public class GameService extends BaseService {
 	public void updateGame(User currentUser, Game game) {
 		gameDAO.updateGame(game);
 	}
-	
+
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void deleteGame(User currentUser, String gameId) {
 		gameDAO.deleteGame(gameId);
 	}
-	
-	
+
 }

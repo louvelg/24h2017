@@ -28,7 +28,7 @@ public class GameWS extends BaseWS {
 		return game;
 	}
 
-	// curl -i -H "Authorization: token=a9163371-790e-45ef-b800-6452698ae443" -X GET http://localhost:8080/codingame/rest/v1/game/list
+	// curl -i  -X GET http://localhost:8080/codingame/rest/v1/game/list
 	@RequestMapping(value = "/game/list", method = RequestMethod.GET)
 	public List<Game> getGameList() {
 		List<Game> gameList = gameService.findAllGame(getUser());

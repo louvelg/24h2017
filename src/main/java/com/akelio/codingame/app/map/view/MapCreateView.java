@@ -30,7 +30,6 @@ public class MapCreateView extends BaseView {
 	}
 
 	public String createMap() {
-		
 		mapService.createMap(getUser(), map);
 		return "pretty:viewMapList";
 	}

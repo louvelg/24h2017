@@ -36,7 +36,8 @@ public class UtilEngine {
 			int gain = getGain(cell);
 			if(gain!=-1) {moneyA += gain;taken++;}
 			if(cell==' ' || gain!=-1) {
-				data.insert(newPosA,'A');
+				putCharAt(data,posA,' ');
+				putCharAt(data,newPosA,'A');
 			}
 		}
 		
@@ -48,7 +49,8 @@ public class UtilEngine {
 			int gain = getGain(cell);
 			if(gain!=-1) {moneyB += gain;taken++;}
 			if(cell==' ' || gain!=-1) {
-				data.insert(newPosB,'B');
+				putCharAt(data,posB,' ');
+				putCharAt(data,newPosB,'B');
 			}
 		}
 		
@@ -60,7 +62,8 @@ public class UtilEngine {
 			int gain = getGain(cell);
 			if(gain!=-1) {moneyC += gain;taken++;}
 			if(cell==' ' || gain!=-1) {
-				data.insert(newPosC,'C');
+				putCharAt(data,posC,' ');
+				putCharAt(data,newPosC,'C');
 			}
 		}
 		
@@ -72,7 +75,8 @@ public class UtilEngine {
 			int gain = getGain(cell);
 			if(gain!=-1) {moneyD += gain;taken++;}
 			if(cell==' ' || gain!=-1) {
-				data.insert(newPosD,'D');
+				putCharAt(data,posD,' ');
+				putCharAt(data,newPosD,'D');
 			}
 		}
 		
@@ -97,6 +101,12 @@ public class UtilEngine {
 		turn.setData(data1);
 		
 		return turn;
+	}
+	
+	
+	private static void putCharAt(StringBuffer b, int pos, char val) {
+		b.deleteCharAt(pos);
+		b.insert(pos,val);
 	}
 	
 	

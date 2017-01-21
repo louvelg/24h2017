@@ -3,9 +3,6 @@ package com.akelio.codingame.client;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Map;
-
-import org.apache.tools.ant.taskdefs.Sleep;
-
 import com.akelio.codingame.client.json.UtilJson;
 
 public class Client {

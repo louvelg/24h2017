@@ -11,6 +11,8 @@ public class UtilMaze {
 	public static String addCells(String data, char[] values) {
 		
 		int valuesNb = values.length;
+		if(valuesNb==0) return data;
+		
 		int left = countLeft(data);
 		if(left<valuesNb) throw new RuntimeException("Invalid data: "+data);
 		
@@ -54,12 +56,12 @@ public class UtilMaze {
 	}
 	
 	
-	public static String buildMaze(int x, int y) {
-		boolean[][] maze = generate(x,y);
+	public static String buildMaze(int w, int h) {
+		boolean[][] maze = generate(w,h);
 		StringBuffer b = new StringBuffer();
 		
-		for (int i = 0; i < x; i++)
-		for (int j = 0; j < y; j++) {
+		for (int i = 0; i < w; i++)
+		for (int j = 0; j < h; j++) {
 			char cell = buildCell(maze[i][j]);
 			b.append(cell);
 		}
@@ -76,12 +78,12 @@ public class UtilMaze {
 	}
 	
 
-	private static boolean[][] generate(int x, int y)
+	private static boolean[][] generate(int w, int h)
 	{
-		boolean[][] data = new boolean[x][y];
+		boolean[][] data = new boolean[w][h];
 		
-		for(int i=0;i<x;i++)
-		for(int j=0;j<y;j++)
+		for(int i=0;i<w;i++)
+		for(int j=0;j<h;j++)
 		data[i][j] = false;
 		
 		perform(data,1,1);

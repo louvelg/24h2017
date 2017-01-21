@@ -35,8 +35,8 @@ public class MapService extends BaseService {
 		char[] cellsSomme = new char[]{'1','2','3','4','5','6'};
 		char[] cellsBot = new char[]{'A','B','C','D'};
 		
-		int height = 50;
-		int width = 50;
+		int height = 30;
+		int width = 30;
 		
 		int minSomme = 5;
 		int maxSomme = 20;

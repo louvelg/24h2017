@@ -114,4 +114,18 @@ public class Turn extends BaseEntity {
 	public String toString() {
 		return new ToStringBuilder(this).append(turnId).toString();
 	}
+	
+	
+	public int getAmountBot1AsInt() {
+		return Integer.parseInt(amountBot1);
+	}
+	public int getAmountBot2AsInt() {
+		return Integer.parseInt(amountBot2);
+	}
+	public int getAmountBot3AsInt() {
+		return Integer.parseInt(amountBot3);
+	}
+	public int getAmountBot4AsInt() {
+		return Integer.parseInt(amountBot4);
+	}
 }

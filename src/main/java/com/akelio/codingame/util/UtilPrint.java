@@ -2,13 +2,13 @@ package com.akelio.codingame.util;
 
 public class UtilPrint {
 
-	public static void printMap(String data, int x, int y) {
+	public static void printDataMap(String data, int w, int h) {
 		
-		if(data.length()!=x*y)
-			throw new RuntimeException("Invalid data for map with dim: "+x+" & "+y);
+		if(data.length()!=w*h)
+			throw new RuntimeException("Invalid data for map with dim: "+w+" & "+h);
 		
-		for(int i=0;i<x;i++) {
-			System.out.println(data.substring(i*y, i*y+y));
+		for(int i=0;i<h;i++) {
+			System.out.println(data.substring(i*w, i*w+w));
 		}
 	}
 }

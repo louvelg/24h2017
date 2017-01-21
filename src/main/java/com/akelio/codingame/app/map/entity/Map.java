@@ -120,11 +120,18 @@ public class Map extends BaseEntity {
 		return new ToStringBuilder(this).append(mapId).toString();
 	}
 	
+	
+	
 	public int getHeightAsInt() {
 		return Integer.parseInt(height);
 	}
-	
 	public int getWidthAsInt() {
 		return Integer.parseInt(width);
+	}
+	public int getMaxSommeAsInt() {
+		return Integer.parseInt(maxSomme);
+	}
+	public int getMinSommeAsInt() {
+		return Integer.parseInt(minSomme);
 	}
 }

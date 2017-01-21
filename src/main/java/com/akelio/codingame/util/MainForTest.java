@@ -1,6 +1,7 @@
 package com.akelio.codingame.util;
 
 import com.akelio.codingame.app.game.entity.Game;
+import com.akelio.codingame.app.map.entity.Map;
 import com.akelio.codingame.app.move.entity.Move;
 import com.akelio.codingame.app.turn.entity.Turn;
 
@@ -17,30 +18,44 @@ public class MainForTest {
 		data = UtilMaze.addCells(data,new char[]{'A','B','C','D'});
 		data = UtilMaze.addCells(data,new char[]{'1','2','3','4','5','6'});
 		
-		UtilPrint.printMap(data, 50, 50);
+		UtilPrint.printDataMap(data, 50, 50);
 	}
 	
-	private static void test1() {
-		int[] pos = UtilEngine.convert1Dto2D(10,10,53);
-		System.out.println("53 -> "+pos[0]+" "+pos[1]);
-
-		int pos1 = UtilEngine.convert2Dto1D(10, 10, 5, 5);
-		System.out.println("5 5 -> "+pos1);
-	}
+	
 	
 	
 	
 	private static void testEngine() {
-		String data = UtilMaze.buildMaze(50, 50);
-		data = UtilMaze.addCells(data,new char[]{'A','B','C','D'});
-		data = UtilMaze.addCells(data,new char[]{'1','2','3','4','5','6'});
+		int w = 50;
+		int h = 50;
 		
-		UtilPrint.printMap(data, 50, 50);
+		char[] sommes = new char[]{'1','2','3','4','5','6'};
+		char[] bots = new char[]{'A','B','C','D'};
+		
+		String data = UtilMaze.buildMaze(w,h);
+		data = UtilMaze.addCells(data,bots);
+		data = UtilMaze.addCells(data,sommes);
+		
+		UtilPrint.printDataMap(data, w, h);
+		
+		Map map = new Map();
+		
+		map.setMaxSomme("1");
+		map.setMinSomme("9");
+		map.setNbSomme(""+sommes.length);
+		map.setData(data);
+		map.setHeight(""+h);
+		map.setWidth(""+w);
 		
 		Turn turn = new Turn();
 		turn.setData(data);
+		turn.setAmountBot1("0");
+		turn.setAmountBot2("0");
+		turn.setAmountBot3("0");
+		turn.setAmountBot4("0");
 		
 		Game game = new Game();
+		game.setMap(map);
 		game.getTurnList().add(turn);
 		
 		Move m1 = new Move();
@@ -53,7 +68,7 @@ public class MainForTest {
 		m4.setDirection("W");
 		
 		Turn nextTurn = UtilEngine.computeNextTurn(game, "1", new Move[]{m1,m2,m3,m4});
-		UtilPrint.printMap(nextTurn.getData(), 50, 50);
+		UtilPrint.printDataMap(nextTurn.getData(), w, h);
 	}
 
 }

@@ -1,0 +1,24 @@
+*.class
+.classpath
+.settings/
+*.settings
+rebel.xml
+env.properties
+
+# Package Files #
+*.war
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+# generated files
+bin/
+gen/
+WebRoot/WEB-INF/classes
+
+# Ignore gradle files
+.gradle
+.gradle/
+build/
+/bin/

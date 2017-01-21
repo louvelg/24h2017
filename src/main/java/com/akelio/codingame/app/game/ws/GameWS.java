@@ -51,15 +51,18 @@ public class GameWS extends BaseWS {
 		Game game = gameService.findGameById(getUser(), gameId);
 		int index = game.setNextBotId(botId);
 		gameService.updateGame(getUser(), game);
-		game = gameService.findGameById(getUser(), gameId);
 		int nbRetry = 0;
-		while (game.isPending() && nbRetry < 10) {
+		while (game.isPending() && nbRetry < 50) {
+			game = gameService.findGameById(getUser(), gameId);
 			try {
 				Thread.sleep(500);
-				nbRetry++;
 			} catch (Exception e) {}
+			nbRetry++;
 		}
-		return "ko : pas assez de joueur";
+		if (game.isPending()) {
+			return "ko : pas assez de joueur";
+		} 
+		return ""+index;
 	}
 
 	// curl -i -H "Authorization: token=a9163371-790e-45ef-b800-6452698ae443" -X DELETE http://localhost:8080/codingame/rest/v1/game/22

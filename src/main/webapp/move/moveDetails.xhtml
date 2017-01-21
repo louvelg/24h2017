@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<ui:composition template="/resources/inspinia/template_basic.xhtml">
+	<ui:param name="selectedMenu" value="move" />
+	<ui:param name="b" value="#{moveDetailsView}" />
+	<ui:define name="content">
+		<h:form id="FormTitle">
+			<div class="row wrapper border-bottom white-bg page-heading">
+				<div class="col-lg-10">
+					<h1>
+						<h:outputText value="#{message.move}" />
+					</h1>
+				</div>
+				<div class="content-button col-lg-2">
+					<h:link outcome="pretty:viewMoveList" styleClass="btn btn-white pull-right">
+						<i class="fa fa-arrow-left m-r-xs"></i>
+						<h:outputText value="#{message.back}" />
+					</h:link>
+				</div>
+			</div>
+		</h:form>
+		<div class="wrapper wrapper-content">
+			<div class="ibox">
+				<div class="ibox-content">
+					<div>
+						<h:outputText value="#{message.move_move_id} : #{b.move.moveId}" />
+					</div>
+					<div>
+						<h:outputText value="#{message.move_game_id} : #{b.move.gameId}" />
+					</div>
+					<div>
+						<h:outputText value="#{message.move_turn_id} : #{b.move.turnId}" />
+					</div>
+					<div>
+						<h:outputText value="#{message.move_indice} : #{b.move.indice}" />
+					</div>
+					<div>
+						<h:outputText value="#{message.move_bot_id} : #{b.move.botId}" />
+					</div>
+					<div>
+						<h:outputText value="#{message.move_bot_name} : #{b.move.botName}" />
+					</div>
+					<div>
+						<h:outputText value="#{message.move_direction} : #{b.move.direction}" />
+					</div>
+					<div>
+						<h:outputText value="#{message.move_date_created} : #{b.move.dateCreated}" />
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

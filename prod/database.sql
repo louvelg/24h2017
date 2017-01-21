@@ -97,3 +97,15 @@ insert into codingame.user (user_id, tenant_id, first_name, last_name, login, pa
 ALTER TABLE `turn` ADD COLUMN `data` VARCHAR(5000) DEFAULT '';
 
 ALTER TABLE `turn` CHANGE COLUMN `index` `indice` VARCHAR(100) NULL DEFAULT '';
+
+CREATE TABLE IF NOT EXISTS move (
+        `move_id` bigint(20) NOT NULL auto_increment,
+        `game_id` bigint(20) NULL,
+        `turn_id` bigint(20) NULL,
+        `indice` varchar(100) default '',
+        `bot_id` bigint(20) NULL,
+        `bot_name` varchar(100) default '',
+        `direction` varchar(100) default '',
+        `date_created` datetime,
+        PRIMARY KEY  (move_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

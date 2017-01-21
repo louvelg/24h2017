@@ -1,5 +1,6 @@
 package com.akelio.codingame.app.game.service;
 
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,7 @@ public class GameService extends BaseService {
 		
 		Turn turn = new Turn();
 		
+		turn.setDateCreated(new Date());
 		turn.setIndice("1");
 		turn.setGameId(game.getGameId());
 		turn.setAmountBot1("0");

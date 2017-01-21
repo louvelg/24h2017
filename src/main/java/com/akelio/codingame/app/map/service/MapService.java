@@ -25,35 +25,36 @@ public class MapService extends BaseService {
 	}
 
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public void createMap(User currentUser) {
+	public Map createMap(User currentUser) {
 		Map map = new Map();
 		map.setHeight("10");
 		map.setWidth("10");
 		map.setMinSomme("5");
 		map.setMaxSomme("20");
-		map.setNbSomme("5");
+		map.setNbSomme("4");
 		map.setName("Map name");
 		map.setData("");
 		int height = Integer.valueOf(map.getHeight());
 		int width = Integer.valueOf(map.getWidth());
 
 		String[][] m = new String[width][height];
-		for (int i = 0; i < m.length; i++) {
-			for (int j = 0; j < m.length; j++) {
-				m[i][j] = "0";
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
+				m[i][j] = " ";
 			}
 		}
-		m[0][0] = "B1";
-		m[height - 1][0] = "B2";
-		m[0][width - 1] = "B3";
-		m[height - 1][width - 1] = "B1";
+		m[0][0] = "A";
+		m[height - 1][0] = "B";
+		m[0][width - 1] = "C";
+		m[height - 1][width - 1] = "D";
 
 		m[2][2] = "5";
 		m[height - 3][2] = "5";
 		m[2][width - 3] = "5";
-		m[height - 3][width - 3] = "10";
+		m[height - 3][width - 3] = "9";
 
 		mapDAO.createMap(map);
+		return map;
 	}
 
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)

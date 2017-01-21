@@ -17,6 +17,7 @@ public class Map extends BaseEntity {
 	private String nbSomme;
 	private String maxSomme;
 	private String minSomme;
+	private String[][] map;
 	private Date dateCreated;
 
 	public String getId() {
@@ -99,6 +100,14 @@ public class Map extends BaseEntity {
 		this.dateCreated = dateCreated;
 	}
 	
+	public String[][] getMap() {
+		return map;
+	}
+
+	public void setMap(String[][] map) {
+		this.map = map;
+	}
+
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder().append(mapId).toHashCode();

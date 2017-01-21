@@ -23,6 +23,10 @@ public class GameService extends BaseService {
 	public Game findGameById(User currentUser, String gameId) {
 		return gameDAO.findGameById(gameId);
 	}
+	
+	public Game findGameByName(User currentUser, String gameName) {
+		return gameDAO.findGameByName(gameName);
+	}
 
 	public List<Game> findAllGame(User currentUser) {
 		return gameDAO.findAllGame();

@@ -20,7 +20,11 @@ public class GameDAO extends BaseDAO<Game> {
 	public Game findGameById(String gameId) {
 		return getOne("select " + fields() + " from game where game_id = ? ", new GameMapper(), gameId);
 	}
-
+	
+	public Game findGameByName(String gameName) {
+		return getOne("select " + fields() + " from game where name = ? ", new GameMapper(), gameName);
+	}
+	
 	public List<Game> findAllGame() {
 		return getList("select " + fields() + " from game ", new GameMapper());
 	}

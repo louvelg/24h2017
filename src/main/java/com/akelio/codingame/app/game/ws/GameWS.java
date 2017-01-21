@@ -36,19 +36,34 @@ public class GameWS extends BaseWS {
 	}
 
 	// curl -i -H "Authorization: token=a9163371-790e-45ef-b800-6452698ae443" -H "Content-type: application/json" -X POST http://localhost:8080/codingame/rest/v1/game -d "{\"gameId\":gameId, \"name\":name, \"mapId\":mapId, \"bot1Id\":bot1Id, \"bot2Id\":bot2Id, \"bot3Id\":bot3Id, \"bot4Id\":bot4Id}"
-	@RequestMapping(value = "/game", method = RequestMethod.POST)
+	@RequestMapping(value = "/game", method = RequestMethod.GET)
 	public Game createGame() {
 		Game game = new Game();
-		game.setName("game toto");
 		gameService.createGame(getUser(), game);
+		game.setName("game" + game.getGameId());
 		return game;
 	}
 
-	// curl -i -H "Authorization: token=a9163371-790e-45ef-b800-6452698ae443" -H "Content-type: application/json" -X PUT http://localhost:8080/codingame/rest/v1/game/22 -d "{\"gameId\":gameId, \"name\":name, \"mapId\":mapId, \"bot1Id\":bot1Id, \"bot2Id\":bot2Id, \"bot3Id\":bot3Id, \"bot4Id\":bot4Id, \"dateCreated\":dateCreated}"
-	@RequestMapping(value = "/game/{gameId}", method = RequestMethod.PUT)
+	// curl -i -H "Content-type: application/json" -X PUT http://localhost:8080/codingame/rest/v1/game/22 -d "{\"gameId\":gameId, \"name\":name, \"mapId\":mapId, \"bot1Id\":bot1Id, \"bot2Id\":bot2Id, \"bot3Id\":bot3Id, \"bot4Id\":bot4Id, \"dateCreated\":dateCreated}"
+	@RequestMapping(value = "/user/{botId}/signin/{gameName}", method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
-	public void updatTask(@PathVariable String gameId, @RequestBody Game game) {
+	public String signinGame(@PathVariable String botId, @PathVariable String gameName) {
+		Game game = gameService.findGameByName(getUser(), gameName);
+		int index = game.setNextBotId(botId);
 		gameService.updateGame(getUser(), game);
+		if (index == 4) {
+			return String.valueOf(index);
+		} else {
+			game = gameService.findGameByName(getUser(), gameName);
+			int nbRetry = 0;
+			while (game.isPending() && nbRetry < 10) {
+				try {
+					Thread.sleep(500);
+					nbRetry ++;
+				} catch (Exception e) {}
+			}
+			return "";
+		}
 	}
 
 	// curl -i -H "Authorization: token=a9163371-790e-45ef-b800-6452698ae443" -X DELETE http://localhost:8080/codingame/rest/v1/game/22

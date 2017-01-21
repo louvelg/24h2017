@@ -16,6 +16,7 @@ import com.akelio.codingame.app.move.service.MoveService;
 import com.akelio.codingame.app.turn.entity.Turn;
 import com.akelio.codingame.app.turn.service.TurnService;
 import com.akelio.codingame.app.user.entity.User;
+import com.akelio.codingame.util.UtilEngine;
 
 @Service("gameService")
 public class GameService extends BaseService {
@@ -64,31 +65,20 @@ public class GameService extends BaseService {
 	}
 
 	
-	public Game nextTurn(String gameId, String indiceBot, String direction) {
-		Move move = new Move();
+	
+	public Game nextTurn(String gameId, String botName, String direction) {
 		Game game = findGameById(null, gameId);
 		
+		String indice = ""+(game.getTurnList().size()+1);
+		System.out.println("Game : " + gameId + " Bot : " + botName +  " direction : " + direction + " Tour : " + indice );
 		
-		String indice = String.valueOf(game.getTurnList().size()+1);
-		System.out.println("Game : " + gameId + " Bot : " + indiceBot +  " direction : " + direction + " Tour : " + indice );
-		
+		Move move = new Move();
 		move.setDirection(direction);
 		move.setGameId(game.getGameId());
-		if (indiceBot.equals("A")) {
-			move.setBotId(game.getBot1Id());
-		}
-		if (indiceBot.equals("B")) {
-			move.setBotId(game.getBot2Id());
-		}
-		if (indiceBot.equals("C")) {
-			move.setBotId(game.getBot3Id());
-		}
-		if (indiceBot.equals("D")) {
-			move.setBotId(game.getBot4Id());
-		}
+		move.setBotId(game.getBotIdForName(botName));
 		move.setIndice(indice);
-		move.setBotName(indiceBot);
-		moveService.createMove(null,indiceBot,  move);
+		move.setBotName(botName);
+		moveService.createMove(null,botName,  move);
 		
 		int nbRetry = 0;
 		int nbMove = moveService.countNbMoveForIndice(gameId, indice);
@@ -99,73 +89,22 @@ public class GameService extends BaseService {
 			} catch (Exception e) {}
 			nbRetry++;
 		}
-		String lastMap = "";
-		if (game.hasTurns()) {
-			lastMap = game.getTurnList().get(game.getTurnList().size()-1).getData();
-		} else {
-			Map map = mapService.findMapById(null, game.getMapId());
-			lastMap = map.getData();
-		}
 		
-		//On récupere la liste des moves pour le tour
-		List<Move> moveList = moveService.findAllMoveForGameAndIndice(game.getGameId(), indice);
-		Move move1 = null;
-		Move move2 = null;
-		Move move3 = null;
-		Move move4 = null;
+		if (turnService.findTurnForGameAndIndice(game.getGameId(), indice) != null)
+			return game;
 		
-		for (Move m : moveList) {
-			if (m.getBotName().equals("A")) {
-				move1 = m;
-			}
-			if (m.getBotName().equals("B")) {
-				move2 = m;
-			}
-			if (m.getBotName().equals("C")) {
-				move3 = m;
-			}
-			if (m.getBotName().equals("D")) {
-				move4 = m;
-			}
-		}
+		Move[] moves = moveService.find4Moves(game, indice);
+		Turn turn = UtilEngine.computeNextTurn(game,indice,moves);
+		if(turn==null) return game;
 		
-		Turn turn = createNextTurn(game, ""+Integer.valueOf(indice), applyMoveToMap(lastMap, move1, move2, move3, move4));
-		if (turn != null) {
-			game.getTurnList().add(turn);
-		}
-		return game;
-	}
-
-	private String applyMoveToMap(String map, Move move1, Move move2, Move move3, Move move4) {
-		return map;
-	}
-	
-	
-	
-	
-	private Turn createNextTurn(Game game, String indice, String nextMap) {
-		System.out.println("Create Turn " + indice);
-		
-		if (turnService.findTurnForGameAndIndice(game.getGameId(), indice) != null) {
-			return null;
-		};
-		
-		Turn turn = new Turn();
-		turn.setIndice(indice);
-		turn.setGameId(game.getGameId());
-		
-		turn.setAmountBot1("0");
-		turn.setAmountBot2("0");
-		turn.setAmountBot3("0");
-		turn.setAmountBot4("0");
-		turn.setData(nextMap);
 		turnService.createTurn(turn);
 		game.getTurnList().add(turn);
-		
 		turnService.printTurn(turn);
 		
-		return turn;
+		return game;
 	}
+	
+	
 
 	
 	

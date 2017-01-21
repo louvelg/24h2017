@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import com.akelio.base.BaseService;
+import com.akelio.codingame.app.game.entity.Game;
 import com.akelio.codingame.app.move.dao.MoveDAO;
 import com.akelio.codingame.app.move.entity.Move;
 import com.akelio.codingame.app.user.entity.User;
@@ -48,6 +49,32 @@ public class MoveService extends BaseService {
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void deleteMove(User currentUser, String moveId) {
 		moveDAO.deleteMove(moveId);
+	}
+	
+	
+	
+	public Move[] find4Moves(Game game, String indice) {
+		List<Move> moveList = findAllMoveForGameAndIndice(game.getGameId(), indice);
+		Move move1 = null;
+		Move move2 = null;
+		Move move3 = null;
+		Move move4 = null;
+		
+		for (Move m : moveList) {
+			if (m.getBotName().equals("A")) {
+				move1 = m;
+			}
+			if (m.getBotName().equals("B")) {
+				move2 = m;
+			}
+			if (m.getBotName().equals("C")) {
+				move3 = m;
+			}
+			if (m.getBotName().equals("D")) {
+				move4 = m;
+			}
+		}
+		return new Move[]{move1,move2,move3,move4};
 	}
 	
 	

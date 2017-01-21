@@ -1,9 +1,27 @@
 package com.akelio.codingame.util;
 
+import com.akelio.codingame.app.game.entity.Game;
+import com.akelio.codingame.app.move.entity.Move;
+import com.akelio.codingame.app.turn.entity.Turn;
+
 public class UtilEngine {
 	
-	public static void computeMoves() {
+	
+	public static Turn computeNextTurn(Game game, String indice, Move[] moves) {
 		
+		Turn previous = game.getLastTurn();
+		
+		Turn turn = new Turn();
+		turn.setIndice(indice);
+		turn.setGameId(game.getGameId());
+		
+		turn.setAmountBot1("0");
+		turn.setAmountBot2("0");
+		turn.setAmountBot3("0");
+		turn.setAmountBot4("0");
+		turn.setData(previous.getData());
+		
+		return turn;
 	}
 	
 

@@ -57,6 +57,17 @@ public class Game extends BaseEntity {
 		}
 		return -1;
 	}
+	
+	public String getBotIdForName(String name) {
+		if(name.equals("A")) return bot1Id;
+		if(name.equals("B")) return bot2Id;
+		if(name.equals("C")) return bot3Id;
+		if(name.equals("D")) return bot4Id;
+		
+		return null;
+	}
+	
+	
 
 	public String getId() {
 		return gameId;

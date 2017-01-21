@@ -95,7 +95,6 @@ public class GameService extends BaseService {
 		move.setBotName(indiceBot);
 		moveService.createMove(null,indiceBot,  move);
 		
-		
 		int nbRetry = 0;
 		int nbMove = moveService.countNbMoveForIndice(gameId, indice);
 		while (nbMove < 4 && nbRetry <50) {
@@ -135,7 +134,7 @@ public class GameService extends BaseService {
 			}
 		}
 		
-		Turn turn = createNextTurn(game, indice, applyMoveToMap(lastMap, move1, move2, move3, move4));
+		Turn turn = createNextTurn(game, ""+Integer.valueOf(indice), applyMoveToMap(lastMap, move1, move2, move3, move4));
 		if (turn != null) {
 			game.getTurnList().add(turn);
 		}
@@ -150,7 +149,9 @@ public class GameService extends BaseService {
 	
 	
 	private Turn createNextTurn(Game game, String indice, String nextMap) {
-		if (turnService.findTurnForGameAndIndice(game.getGameId(), indice) == null) {
+		System.out.println("Create Turn " + indice);
+		
+		if (turnService.findTurnForGameAndIndice(game.getGameId(), indice) != null) {
 			return null;
 		};
 		

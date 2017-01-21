@@ -25,7 +25,7 @@ public class GameService extends BaseService {
 	TurnService	turnService;
 	public void init(Game game) {
 		Turn turn = new Turn();
-		turn.setIndex("1");
+		turn.setIndice("1");
 		turn.setGameId(game.getGameId());
 		turn.setAmountBot1("0");
 		turn.setAmountBot2("0");

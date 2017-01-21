@@ -14,8 +14,7 @@ import com.gs.collections.impl.list.mutable.FastList;
 public class TurnDAO extends BaseDAO<Turn> {
 	private static final String			TABLE_NAME	= "turn";
 	private static final List<String>	TABLE_PKS	= Arrays.asList("turn_id");
-	List<String>						fieldList	= Arrays.asList("turn_id", "index", "game_id", "date_created", "x_bot1", "y_bot1", "x_bot2", "y_bot2", "x_bot3", "y_bot3", "x_bot4", "y_bot4",
-															"amount_bot1", "amount_bot2", "amount_bot3", "amount_bot4", "data");
+	List<String>						fieldList	= Arrays.asList("turn_id", "indice", "game_id", "date_created", "amount_bot1", "amount_bot2", "amount_bot3", "amount_bot4", "data");
 
 	public Turn findTurnById(String turnId) {
 		return getOne("select " + fields() + " from turn where turn_id = ? ", new TurnMapper(), turnId);

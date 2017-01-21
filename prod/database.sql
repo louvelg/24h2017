@@ -95,3 +95,5 @@ CREATE TABLE IF NOT EXISTS user (
 insert into codingame.user (user_id, tenant_id, first_name, last_name, login, password) values ("1","1","Guillaume","Admin","admin","admin");
 
 ALTER TABLE `turn` ADD COLUMN `data` VARCHAR(5000) DEFAULT '';
+
+ALTER TABLE `turn` CHANGE COLUMN `index` `indice` VARCHAR(100) NULL DEFAULT '';

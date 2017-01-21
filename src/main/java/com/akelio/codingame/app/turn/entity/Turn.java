@@ -9,7 +9,7 @@ import com.akelio.base.BaseEntity;
 public class Turn extends BaseEntity {
 
 	private String	turnId;
-	private String	index;
+	private String	indice;
 	private String	gameId;
 	private Date	dateCreated;
 	private String	amountBot1;
@@ -34,12 +34,12 @@ public class Turn extends BaseEntity {
 		this.turnId = turnId;
 	}
 
-	public String getIndex() {
-		return index;
+	public String getIndice() {
+		return indice;
 	}
 
-	public void setIndex(String index) {
-		this.index = index;
+	public void setIndice(String indice) {
+		this.indice = indice;
 	}
 
 	public String getGameId() {

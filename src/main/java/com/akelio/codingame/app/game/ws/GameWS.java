@@ -34,6 +34,8 @@ public class GameWS extends BaseWS {
 		return gameList;
 	}
 
+	
+	
 	// curl -i -H "Authorization: token=a9163371-790e-45ef-b800-6452698ae443" -H "Content-type: application/json" -X POST http://localhost:8080/codingame/rest/v1/game -d "{\"gameId\":gameId, \"name\":name, \"mapId\":mapId, \"bot1Id\":bot1Id, \"bot2Id\":bot2Id, \"bot3Id\":bot3Id, \"bot4Id\":bot4Id}"
 	@RequestMapping(value = "/game", method = RequestMethod.GET)
 	public Game createGame() {
@@ -42,6 +44,8 @@ public class GameWS extends BaseWS {
 		game.setName("game" + game.getGameId());
 		return game;
 	}
+	
+	
 
 	// curl -i -X GET http://localhost:8080/codingame/rest/v1/user/1/signin/2
 	@RequestMapping(value = "/user/{botId}/signin/{gameId}", method = RequestMethod.GET)
@@ -71,9 +75,12 @@ public class GameWS extends BaseWS {
 			return g;
 		}
 		
-		System.out.println("initializing game");
-		gameService.init(gameId);
-		game.setCurrentBot(getCurrentBot(index));
+		String currentBot = getCurrentBot(index);
+		
+		System.out.println("initializing game for "+currentBot);
+		game = gameService.initFirstTurn(gameId);
+		game.setCurrentBot(currentBot);
+		
 		return game;
 	}
 	

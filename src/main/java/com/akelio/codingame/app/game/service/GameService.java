@@ -29,9 +29,12 @@ public class GameService extends BaseService {
 	TurnService	turnService;
 	
 	
-	public synchronized void init(String gameId) {
+	public synchronized Game initFirstTurn(String gameId) {
 		Game game = findGameById(null, gameId);
-		if(game.hasTurns()) return;
+		if(game.hasTurns()) return game;
+		
+		String mapId = game.getMapId();
+		Map map = mapService.findMapById(null, mapId);
 		
 		Turn turn = new Turn();
 		
@@ -42,21 +45,11 @@ public class GameService extends BaseService {
 		turn.setAmountBot3("0");
 		turn.setAmountBot4("0");
 		
-		
-		turn.setData(
-				 "A        C"
-				+"          "
-				+"  4   5   "
-				+"          "
-				+"          "
-				+"          "
-				+"          "
-				+"  4   6   "
-				+"          "
-				+"B        D");
+		turn.setData(map.getData());
 		
 		turnService.createTurn(turn);
 		game.getTurnList().add(turn);
+		return game;
 	}
 
 	
@@ -149,7 +142,7 @@ public class GameService extends BaseService {
 	
 	private Turn createNextTurn(Game game, String nextMap) {
 		Turn turn = new Turn();
-		turn.setIndice(String.valueOf(game.getTurnList().size()+1));
+		turn.setIndice(""+(game.getTurnList().size()+1));
 		turn.setGameId(game.getGameId());
 		
 		turn.setAmountBot1("0");

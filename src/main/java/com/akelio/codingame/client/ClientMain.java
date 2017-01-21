@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Map;
+import com.akelio.codingame.client.json.UtilJson;
 
 public class ClientMain {
 	
@@ -18,7 +19,7 @@ public class ClientMain {
 	
 	
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
 		
 		Map<String,String> params = Util.argsToParams(args);
 		
@@ -39,13 +40,15 @@ public class ClientMain {
 	
 	
 	
-	private static void createGame(String host) throws IOException {
+	private static void createGame(String host) throws Exception {
 		
 		URL url = new URL(host+PATH_CREATE);
 		URLConnection con = (URLConnection) url.openConnection();
 		String res = Util.retrieveString(con);
+		System.out.println("res="+res);
 		
-		System.out.println(res);
+		Map data = (Map) UtilJson.parseJson(res);
+		System.out.println(data);
 	}
 	
 	

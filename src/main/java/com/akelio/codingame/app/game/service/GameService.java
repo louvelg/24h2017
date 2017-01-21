@@ -10,6 +10,8 @@ import com.akelio.codingame.app.game.dao.GameDAO;
 import com.akelio.codingame.app.game.entity.Game;
 import com.akelio.codingame.app.map.entity.Map;
 import com.akelio.codingame.app.map.service.MapService;
+import com.akelio.codingame.app.turn.entity.Turn;
+import com.akelio.codingame.app.turn.service.TurnService;
 import com.akelio.codingame.app.user.entity.User;
 
 @Service("gameService")
@@ -19,11 +21,35 @@ public class GameService extends BaseService {
 	GameDAO		gameDAO;
 	@Autowired
 	MapService	mapService;
+	@Autowired
+	TurnService	turnService;
+	public void init(Game game) {
+		Turn turn = new Turn();
+		turn.setIndex("1");
+		turn.setGameId(game.getGameId());
+		turn.setAmountBot1("0");
+		turn.setAmountBot2("0");
+		turn.setAmountBot3("0");
+		turn.setAmountBot4("0");
+		turn.setData(
+				 "A        C"
+				+"          "
+				+"  4   5   "
+				+"          "
+				+"          "
+				+"          "
+				+"          "
+				+"  4   6   "
+				+"          "
+				+"B        D");
+		turnService.createTurn(turn);
+		game.setLastTurn(turn);
+	}
 
 	public Game findGameById(User currentUser, String gameId) {
 		return gameDAO.findGameById(gameId);
 	}
-	
+
 	public Game findGameByName(User currentUser, String gameName) {
 		return gameDAO.findGameByName(gameName);
 	}

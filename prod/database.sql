@@ -94,5 +94,4 @@ CREATE TABLE IF NOT EXISTS user (
 
 insert into codingame.user (user_id, tenant_id, first_name, last_name, login, password) values ("1","1","Guillaume","Admin","admin","admin");
 
-
-ALTER TABLE `game` ADD COLUMN `nb_turn` VARCHAR(10) DEFAULT '';
+ALTER TABLE `turn` ADD COLUMN `data` VARCHAR(5000) DEFAULT '';

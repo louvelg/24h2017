@@ -29,6 +29,11 @@ public class TurnService extends BaseService {
 	public void createTurn(User currentUser, Turn turn) {
 		turnDAO.createTurn(turn);
 	}
+	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	public void createTurn(Turn turn) {
+		turnDAO.createTurn(turn);
+	}
 
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void updateTurn(User currentUser, Turn turn) {

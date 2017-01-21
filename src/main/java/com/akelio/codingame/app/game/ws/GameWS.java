@@ -61,7 +61,9 @@ public class GameWS extends BaseWS {
 		}
 		if (game.isPending()) {
 			return "ko : pas assez de joueur";
-		} 
+		}
+		gameService.init(game);
+		
 		return ""+index;
 	}
 

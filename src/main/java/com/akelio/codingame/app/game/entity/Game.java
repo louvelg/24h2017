@@ -21,6 +21,7 @@ public class Game extends BaseEntity {
 	private Date		dateCreated;
 
 	private List<Turn>	turnList;
+	private Turn		lastTurn;
 
 	public Game() {
 		turnList = new ArrayList<>();
@@ -133,6 +134,14 @@ public class Game extends BaseEntity {
 
 	public void setTurnList(List<Turn> turnList) {
 		this.turnList = turnList;
+	}
+
+	public Turn getLastTurn() {
+		return lastTurn;
+	}
+
+	public void setLastTurn(Turn lastTurn) {
+		this.lastTurn = lastTurn;
 	}
 
 	@Override

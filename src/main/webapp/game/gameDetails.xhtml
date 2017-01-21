@@ -42,9 +42,9 @@
 						</div>
 						<div>
 							<p:dataList value="#{b.list}" var="var" type="none" rowIndexVar="ligne" id="ligne">
-								<div class="ligne" style="font-size: 14px;">
-									<p:dataList value="#{var}" var="cell" type="none" rowIndexVar="colonne">
-										<img src="#{facesContext.externalContext.requestContextPath}/resources/images/sprite_#{cell}.png" style="" />
+								<div class="ligne" style="height: 20px !important;">
+									<p:dataList value="#{var}" var="cell" type="none" rowIndexVar="colonne" style="margin: 0px;padding: 0px;height: 15px; width: 15px">
+										<img src="#{facesContext.externalContext.requestContextPath}/resources/images/sprite_#{cell}.png" style="margin-right: -5px !important;" />
 									</p:dataList>
 								</div>
 							</p:dataList>

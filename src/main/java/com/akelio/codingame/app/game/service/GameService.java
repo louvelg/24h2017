@@ -84,6 +84,7 @@ public class GameService extends BaseService {
 		turnService.createTurn(turn);
 		game.setLastTurn(turn);
 		game.getTurnList().add(turn);
+		turnService.printTurn(turn);
 	}
 
 	

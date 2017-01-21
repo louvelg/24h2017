@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<ui:composition template="/resources/inspinia/template_basic.xhtml">
+	<ui:param name="selectedMenu" value="game" />
+	<ui:param name="b" value="#{gameDetailsView}" />
+	<ui:define name="content">
+		<h:form id="FormTitle">
+			<div class="row wrapper border-bottom white-bg page-heading">
+				<div class="col-lg-10">
+					<h1>
+						<h:outputText value="#{message.game}" />
+					</h1>
+				</div>
+				<div class="content-button col-lg-2">
+					<h:link outcome="pretty:viewGameList" styleClass="btn btn-white pull-right">
+						<i class="fa fa-arrow-left m-r-xs"></i>
+						<h:outputText value="#{message.back}" />
+					</h:link>
+				</div>
+			</div>
+		</h:form>
+		<div class="wrapper wrapper-content">
+			<div class="ibox">
+				<div class="ibox-content">
+					<div>
+						<h:outputText value="#{message.game_game_id} : #{b.game.gameId}" />
+					</div>
+					<div>
+						<h:outputText value="#{message.game_name} : #{b.game.name}" />
+					</div>
+					<div>
+						<h:outputText value="#{message.game_map_id} : #{b.game.mapId}" />
+					</div>
+					<div>
+						<h:outputText value="#{message.game_bot1_id} : #{b.game.bot1Id}" />
+					</div>
+					<div>
+						<h:outputText value="#{message.game_bot2_id} : #{b.game.bot2Id}" />
+					</div>
+					<div>
+						<h:outputText value="#{message.game_bot3_id} : #{b.game.bot3Id}" />
+					</div>
+					<div>
+						<h:outputText value="#{message.game_bot4_id} : #{b.game.bot4Id}" />
+					</div>
+					<div>
+						<h:outputText value="#{message.game_date_created} : #{b.game.dateCreated}" />
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

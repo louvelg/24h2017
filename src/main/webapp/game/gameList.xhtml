@@ -5,19 +5,19 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <ui:composition template="/resources/inspinia/template_basic.xhtml">
-	<ui:param name="selectedMenu" value="bot" />
-	<ui:param name="b" value="#{botListView}" />
+	<ui:param name="selectedMenu" value="game" />
+	<ui:param name="b" value="#{gameListView}" />
 	<ui:define name="content">
 		<h:form id="FormButton">
 			<div class="row wrapper border-bottom white-bg page-heading">
 				<div class="col-lg-10">
 					<h1>
-						<h:outputText value="Liste des bots" />
+						<h:outputText value="#{message.game_list}" />
 					</h1>
 				</div>
 				<div class="content-button col-lg-2">
 					<div class="btn-group pull-right">
-						<h:link outcome="pretty:viewBotCreate" styleClass="btn btn-primary">
+						<h:link outcome="pretty:viewGameCreate" styleClass="btn btn-primary">
 							<i class="fa fa-plus m-r-xs"></i>
 							<h:outputText value="#{message.create}" />
 						</h:link>
@@ -29,23 +29,23 @@
 			<div class="wrapper wrapper-content">
 				<div class="ibox">
 					<div class="ibox-content">
-						<p:dataTable value="#{b.botList}" var="var" emptyMessage="#{message.empty_message}" styleClass="std-datatable">
+						<p:dataTable value="#{b.gameList}" var="var" emptyMessage="#{message.empty_message}" styleClass="std-datatable">
 							<p:column>
 								<f:facet name="header">
-									<h:outputText value="Nom du bot" />
+									<h:outputText value="#{message.game_name}" />
 								</f:facet>
-								<h:link outcome="pretty:viewBotDetails">
-									<f:param name="botId" value="#{var.botId}" />
-									<h:outputText value="#{var.name}" />
+								<h:link outcome="pretty:viewGameDetails">
+									<f:param name="gameId" value="#{var.gameId}" />
+									<h:outputText value="#{var.gameId}" />
 								</h:link>
 							</p:column>
 							<p:column width="80">
-								<h:commandLink action="#{b.deleteBot}" styleClass="btn btn-xs btn-white pull-right" onclick="if (!confirm('#{message.bot_confirm_del}')) return false" update="@form" title="#{message.delete}">
+								<h:commandLink action="#{b.deleteGame}" styleClass="btn btn-xs btn-white pull-right" onclick="if (!confirm('#{message.game_confirm_del}')) return false" update="@form" title="#{message.delete}">
 									<span class="fa fa-trash" />
-									<f:param name="botId" value="#{var.botId}" />
+									<f:param name="gameId" value="#{var.gameId}" />
 								</h:commandLink>
-								<h:link outcome="pretty:viewBotUpdate" styleClass="btn btn-xs btn-white pull-right" title="#{message.update}">
-									<f:param name="botId" value="#{var.botId}" />
+								<h:link outcome="pretty:viewGameUpdate" styleClass="btn btn-xs btn-white pull-right" title="#{message.update}">
+									<f:param name="gameId" value="#{var.gameId}" />
 									<i class="fa fa-pencil" />
 								</h:link>
 							</p:column>

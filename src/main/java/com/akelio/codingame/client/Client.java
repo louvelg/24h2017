@@ -63,6 +63,7 @@ public class Client {
 			
 			URL urlGame = new URL(urlGame_);
 			URLConnection conGame = (URLConnection) urlGame.openConnection();
+			String resGame = Util.retrieveString(conGame);
 		}
 	}
 

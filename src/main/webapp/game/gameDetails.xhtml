@@ -12,7 +12,7 @@
 			<div class="row wrapper border-bottom white-bg page-heading">
 				<div class="col-lg-10">
 					<h1>
-						<h:outputText value="#{message.game}" />
+						<h:outputText value="Partie : #{b.game.gameId}" />
 					</h1>
 				</div>
 				<div class="content-button col-lg-2">
@@ -27,30 +27,24 @@
 			<div class="ibox">
 				<div class="ibox-content">
 					<div>
-						<h:outputText value="#{message.game_game_id} : #{b.game.gameId}" />
+						<h:outputText value="Partie : #{b.game.gameId}" />
 					</div>
 					<div>
-						<h:outputText value="#{message.game_name} : #{b.game.name}" />
+						<h:outputText value="#{b.game.dateCreated}">
+							<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+						</h:outputText>
 					</div>
-					<div>
-						<h:outputText value="#{message.game_map_id} : #{b.game.mapId}" />
-					</div>
-					<div>
-						<h:outputText value="#{message.game_bot1_id} : #{b.game.bot1Id}" />
-					</div>
-					<div>
-						<h:outputText value="#{message.game_bot2_id} : #{b.game.bot2Id}" />
-					</div>
-					<div>
-						<h:outputText value="#{message.game_bot3_id} : #{b.game.bot3Id}" />
-					</div>
-					<div>
-						<h:outputText value="#{message.game_bot4_id} : #{b.game.bot4Id}" />
-					</div>
-					<div>
-						<h:outputText value="#{message.game_date_created} : #{b.game.dateCreated}" />
-					</div>
-					
+
+					<p:dataList value="#{b.list}" var="var" type="none" rowIndexVar="ligne" id="ligne" styleClass="pull-left">
+						<div class="ligne">
+							<p:dataList value="#{var}" var="cell" type="none" rowIndexVar="colonne">
+								<p:outputPanel styleClass="case " layout="inline">
+									<h:outputText value="#{cell}" />
+									<img src="#{facesContext.externalContext.requestContextPath}/resources/inspinia/images/sprite_#{cell}.png" />
+								</p:outputPanel>
+							</p:dataList>
+						</div>
+					</p:dataList>
 				</div>
 			</div>
 		</div>

@@ -26,18 +26,32 @@ public class GameDetailsView extends BaseView {
 
 	private Game					game;
 	private List<List<String>>		list;
+	private int						turnIndice;
+	private boolean					hasNext;
+	private boolean					hasPrevious;
+	private int						lastIndice;
 
 	@PostConstruct
 	public void init() {
 		initBean();
 		game = gameService.findGameById(getUser(), getParam("gameId"));
-		Map map = game.getMap();
-		String data = map.getData();
+		lastIndice = game.getTurnList().size();
+		turnIndice = 1;
+		refreshListData();
+	}
 
+	private void refreshListData() {
+		Map map = game.getMap();
 		int height = Integer.valueOf(map.getHeight());
 		int width = Integer.valueOf(map.getWidth());
-		String line = null;
 
+		String data = null;
+
+		hasNext = game.getTurnList().size() > turnIndice;
+		hasPrevious = (turnIndice > 1);
+
+		data = game.getTurnList().get(turnIndice - 1).getData();
+		String line = null;
 		List<String> l1 = new ArrayList<>();
 		list = new ArrayList<>();
 		for (int i = 0; i < height; i++) {
@@ -51,8 +65,22 @@ public class GameDetailsView extends BaseView {
 		}
 	}
 
-	
-	
+	public String nextTurn() {
+		if (turnIndice < game.getTurnList().size()) {
+			turnIndice++;
+		}
+		refreshListData();
+		return "";
+	}
+
+	public String previousTurn() {
+		if (turnIndice > 1) {
+			turnIndice--;
+		}
+		refreshListData();
+		return "";
+	}
+
 	public Game getGame() {
 		return game;
 	}
@@ -67,6 +95,38 @@ public class GameDetailsView extends BaseView {
 
 	public void setList(List<List<String>> list) {
 		this.list = list;
+	}
+
+	public boolean isHasNext() {
+		return hasNext;
+	}
+
+	public void setHasNext(boolean hasNext) {
+		this.hasNext = hasNext;
+	}
+
+	public boolean isHasPrevious() {
+		return hasPrevious;
+	}
+
+	public void setHasPrevious(boolean hasPrevious) {
+		this.hasPrevious = hasPrevious;
+	}
+
+	public int getTurnIndice() {
+		return turnIndice;
+	}
+
+	public void setTurnIndice(int turnIndice) {
+		this.turnIndice = turnIndice;
+	}
+
+	public int getLastIndice() {
+		return lastIndice;
+	}
+
+	public void setLastIndice(int lastIndice) {
+		this.lastIndice = lastIndice;
 	}
 
 	public Logger getLogger() {

@@ -92,4 +92,4 @@ CREATE TABLE IF NOT EXISTS user (
 	PRIMARY KEY  (user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-insert into codingame.user (user_id, first_name, last_name, login, password) values ("1","Guillaume","Admin","admin","admin");
+insert into codingame.user (user_id, tenant_id, first_name, last_name, login, password) values ("1","1","Guillaume","Admin","admin","admin");

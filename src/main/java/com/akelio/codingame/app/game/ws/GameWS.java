@@ -48,11 +48,16 @@ public class GameWS extends BaseWS {
 	@RequestMapping(value = "/user/{botId}/signin/{gameId}", method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
 	public String signinGame(@PathVariable String botId, @PathVariable String gameId) {
-		Game game = gameService.findGameById(getUser(), gameId);
-		int index = game.setNextBotId(botId);
-		gameService.updateGame(getUser(), game);
+		
+		int index = gameService.addNewBot(getUser(), gameId, botId);
+		
+
+		System.out.println("index="+index);
+		System.out.println("updateGame done");
+		
 		int nbRetry = 0;
-		while (game.isPending() && nbRetry < 50) {
+		Game game = gameService.findGameById(getUser(), gameId);
+		while (game.isPending() && nbRetry<50) {
 			game = gameService.findGameById(getUser(), gameId);
 			try {
 				Thread.sleep(500);
@@ -60,8 +65,11 @@ public class GameWS extends BaseWS {
 			nbRetry++;
 		}
 		if (game.isPending()) {
+			System.out.println("time out");
 			return "ko : pas assez de joueur";
 		}
+		
+		System.out.println("initializing game");
 		gameService.init(game);
 		
 		return ""+index;

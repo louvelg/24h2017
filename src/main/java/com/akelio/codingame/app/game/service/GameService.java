@@ -46,6 +46,14 @@ public class GameService extends BaseService {
 		game.setLastTurn(turn);
 	}
 
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	public synchronized int addNewBot(User currentUser, String gameId, String botId) {
+		Game game = findGameById(currentUser, gameId);
+		int index = game.setNextBotId(botId);
+		updateGame(currentUser, game);
+		return index;
+	}
+
 	public Game findGameById(User currentUser, String gameId) {
 		return gameDAO.findGameById(gameId);
 	}

@@ -26,7 +26,7 @@ public class GameDAO extends BaseDAO<Game> {
 	}
 	
 	public List<Game> findAllGame() {
-		return getList("select " + fields() + " from game ", new GameMapper());
+		return getList("select " + fields() + " from game order by date_created desc", new GameMapper());
 	}
 
 	

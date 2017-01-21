@@ -12,7 +12,7 @@
 			<div class="row wrapper border-bottom white-bg page-heading">
 				<div class="col-lg-10">
 					<h1>
-						<h:outputText value="#{message.game_list}" />
+						<h:outputText value="Liste des parties" />
 					</h1>
 				</div>
 				<div class="content-button col-lg-2">
@@ -36,7 +36,10 @@
 								</f:facet>
 								<h:link outcome="pretty:viewGameDetails">
 									<f:param name="gameId" value="#{var.gameId}" />
-									<h:outputText value="#{var.gameId}" />
+									<h:outputText value="#{var.gameId} - " />
+									<h:outputText value="#{var.dateCreated}">
+										<f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+									</h:outputText>
 								</h:link>
 							</p:column>
 							<p:column width="80">

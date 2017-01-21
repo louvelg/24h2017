@@ -20,8 +20,8 @@ public class MoveDAO extends BaseDAO<Move> {
 		return getOne("select " + fields() + " from move where move_id = ? ", new MoveMapper(), moveId);
 	}
 	
-	public Move findMoveByGameAndIndice(String gameId, String indice) {
-		return getOne("select " + fields() + " from move where game_id = ? and indice = ? ", new MoveMapper(), gameId, indice);
+	public Move findMoveByGameAndIndice(String gameId, String indice, String botName) {
+		return getOne("select " + fields() + " from move where game_id = ? and indice = ? and bot_name = ? ", new MoveMapper(), gameId, indice, botName);
 	}
 
 	public List<Move> findAllMove() {

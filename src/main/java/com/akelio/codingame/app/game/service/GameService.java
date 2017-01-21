@@ -66,13 +66,14 @@ public class GameService extends BaseService {
 	}
 
 	
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public synchronized Game nextTurn(String gameId, String indiceBot, String direction) {
+	public Game nextTurn(String gameId, String indiceBot, String direction) {
 		Move move = new Move();
 		Game game = findGameById(null, gameId);
 		
 		
 		String indice = String.valueOf(game.getTurnList().size()+1);
+		System.out.println("Game : " + gameId + " Bot : " + indiceBot +  " direction : " + direction + " Tour : " + indice );
+		
 		move.setDirection(direction);
 		move.setGameId(game.getGameId());
 		if (indiceBot.equals("A")) {
@@ -89,7 +90,7 @@ public class GameService extends BaseService {
 		}
 		move.setIndice(indice);
 		move.setBotName(indiceBot);
-		moveService.createMove(null, move);
+		moveService.createMove(null,indiceBot,  move);
 		
 		
 		int nbRetry = 0;
@@ -131,9 +132,11 @@ public class GameService extends BaseService {
 			}
 		}
 		
-		Turn turn = createNextTurn(game, applyMoveToMap(lastMap, move1, move2, move3, move4));
-		game.setLastTurn(turn);
-		game.getTurnList().add(turn);
+		Turn turn = createNextTurn(game, indice, applyMoveToMap(lastMap, move1, move2, move3, move4));
+		if (turn != null) {
+			game.setLastTurn(turn);
+			game.getTurnList().add(turn);
+		}
 		return game;
 	}
 
@@ -144,9 +147,13 @@ public class GameService extends BaseService {
 	
 	
 	
-	private Turn createNextTurn(Game game, String nextMap) {
+	private Turn createNextTurn(Game game, String indice, String nextMap) {
+		if (turnService.findTurnForGameAndIndice(game.getGameId(), indice) == null) {
+			return null;
+		};
+		
 		Turn turn = new Turn();
-		turn.setIndice(String.valueOf(game.getTurnList().size()+1));
+		turn.setIndice(indice);
 		turn.setGameId(game.getGameId());
 		turn.setAmountBot1("0");
 		turn.setAmountBot2("0");

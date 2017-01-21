@@ -34,12 +34,15 @@ public class GameService extends BaseService {
 		if(game.hasTurns()) return;
 		
 		Turn turn = new Turn();
+		
 		turn.setIndice("1");
 		turn.setGameId(game.getGameId());
 		turn.setAmountBot1("0");
 		turn.setAmountBot2("0");
 		turn.setAmountBot3("0");
 		turn.setAmountBot4("0");
+		
+		
 		turn.setData(
 				 "A        C"
 				+"          "

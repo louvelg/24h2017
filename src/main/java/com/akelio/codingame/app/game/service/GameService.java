@@ -110,6 +110,8 @@ public class GameService extends BaseService {
 	public Game findGameById(User currentUser, String gameId) {
 		List<Turn> turnList = turnService.findAllTurnForGame(gameId);
 		Game game = gameDAO.findGameById(gameId);
+		Map map = mapService.findMapById(null, game.getMapId());
+		game.setMap(map);
 		game.setTurnList(turnList);
 		return game;
 	}

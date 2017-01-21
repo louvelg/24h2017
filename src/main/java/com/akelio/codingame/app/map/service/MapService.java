@@ -18,6 +18,8 @@ public class MapService extends BaseService {
 
 	public Map findMapById(User currentUser, String mapId) {
 		return mapDAO.findMapById(mapId);
+		
+		
 	}
 
 	public List<Map> findAllMap(User currentUser) {
@@ -33,7 +35,6 @@ public class MapService extends BaseService {
 		map.setMaxSomme("20");
 		map.setNbSomme("4");
 		map.setName("Map name");
-		map.setData("");
 		int height = Integer.valueOf(map.getHeight());
 		int width = Integer.valueOf(map.getWidth());
 
@@ -52,7 +53,18 @@ public class MapService extends BaseService {
 		m[height - 3][2] = "5";
 		m[2][width - 3] = "5";
 		m[height - 3][width - 3] = "9";
-
+		
+		map.setData(
+				 "A        C"
+				+"          "
+				+"  4   5   "
+				+"          "
+				+"          "
+				+"          "
+				+"          "
+				+"  4   6   "
+				+"          "
+				+"B        D");
 		mapDAO.createMap(map);
 		return map;
 	}

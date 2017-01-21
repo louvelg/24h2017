@@ -17,9 +17,9 @@ public class Map extends BaseEntity {
 	private String nbSomme;
 	private String maxSomme;
 	private String minSomme;
-	private String[][] map;
 	private Date dateCreated;
 
+	
 	public String getId() {
 		return mapId;
 	}
@@ -98,14 +98,6 @@ public class Map extends BaseEntity {
 		
 	public void setDateCreated(Date dateCreated) {
 		this.dateCreated = dateCreated;
-	}
-	
-	public String[][] getMap() {
-		return map;
-	}
-
-	public void setMap(String[][] map) {
-		this.map = map;
 	}
 
 	@Override

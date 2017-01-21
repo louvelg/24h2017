@@ -2,16 +2,13 @@ package com.akelio.codingame.client.json;
 
 public class UtilJson {
 	
-	private static Parser2 parser = new Parser2(false);
-	private static Parser2 parserD = new Parser2(true);
-	
 
-	public static Object parseJson(String in) throws Exception {
-		return parser.parse(clean(in));
+	public static synchronized Object parseJson(String in) throws Exception {
+		return new Parser2(false).parse(clean(in));
 	}
 	
-	public static Object parseJsonD(String in) throws Exception {
-		return parserD.parse(clean(in));
+	public static synchronized Object parseJsonD(String in) throws Exception {
+		return new Parser2(true).parse(clean(in));
 	}
 	
 

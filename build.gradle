@@ -1,0 +1,78 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'war'
+
+//Version de l'application
+def appversion = '1.0'
+
+//Version des dependences
+def javaversion = '1.8'
+def springsecurity = '4.0.4.RELEASE'
+
+eclipse {
+	project { natures 'org.springsource.ide.eclipse.gradle.core.nature', 'org.eclipse.jdt.groovy.core.groovyNature', 'org.eclipse.wst.common.project.facet.core.nature' }
+	classpath {
+		containers 'org.springsource.ide.eclipse.gradle.classpathcontainer'
+		containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
+		containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
+	}
+	wtp {
+		facet {
+			facet name: 'jst.web', version: '3.1'
+			facet name: 'java', version: javaversion
+		}
+	}
+	jdt {
+		sourceCompatibility = javaversion
+		targetCompatibility = javaversion
+	}
+}
+
+war {
+	baseName = 'codingame'
+	version = appversion
+}
+sourceCompatibility = javaversion
+targetCompatibility = javaversion
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+	maven { url "http://repo.spring.io/libs-snapshot" }
+	maven { url "http://repository.primefaces.org" }
+//	maven { url "https://mymavenrepo.com/repo/d3AlT8SFv15RtCzFQRup" }
+}
+
+configurations { providedRuntime }
+
+dependencies {
+	// Dependences pour la compilation uniquement du projet
+	providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+
+	//	compile files('lib/akelio-base-1.0.jar')
+	// Dependences AKELIO
+	compile "com.akelio:akelio-jsf:1.0"
+	compile "com.akelio:akelio-mail:1.0"
+	compile "com.akelio:akelio-healthcheck:1.0"
+	compile "com.akelio:akelio-password-reset:1.0"
+
+	// Dependences Spring
+	compile "org.springframework.security:spring-security-web:$springsecurity"
+	compile "org.springframework.security:spring-security-config:$springsecurity"
+	
+	// Dependences MySQL / JDBC
+	compile "mysql:mysql-connector-java:5.1.40"
+	compile 'org.apache.tomcat:tomcat-jdbc:8.5.6' // Pool de connexion
+
+	// Dependences Utilitaires
+	compile 'commons-validator:commons-validator:1.5.1'
+	compile 'commons-fileupload:commons-fileupload:1.3.2'
+	compile 'ro.isdc.wro4j:wro4j-core:1.7.8'
+	compile 'ro.isdc.wro4j:wro4j-extensions:1.7.8'
+	compile 'com.google.code.spring-crypto-utils:spring-crypto-utils:1.4.0'
+	compile 'org.flywaydb:flyway-core:4.0.3'
+	compile group: 'org.ocpsoft.prettytime', name: 'prettytime', version: '4.0.1.Final'
+
+}
+

@@ -45,25 +45,21 @@ public class GameWS extends BaseWS {
 	}
 
 	// curl -i -H "Content-type: application/json" -X PUT http://localhost:8080/codingame/rest/v1/game/22 -d "{\"gameId\":gameId, \"name\":name, \"mapId\":mapId, \"bot1Id\":bot1Id, \"bot2Id\":bot2Id, \"bot3Id\":bot3Id, \"bot4Id\":bot4Id, \"dateCreated\":dateCreated}"
-	@RequestMapping(value = "/user/{botId}/signin/{gameName}", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/{botId}/signin/{gameId}", method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
-	public String signinGame(@PathVariable String botId, @PathVariable String gameName) {
-		Game game = gameService.findGameByName(getUser(), gameName);
+	public String signinGame(@PathVariable String botId, @PathVariable String gameId) {
+		Game game = gameService.findGameById(getUser(), gameId);
 		int index = game.setNextBotId(botId);
 		gameService.updateGame(getUser(), game);
-		if (index == 4) {
-			return String.valueOf(index);
-		} else {
-			game = gameService.findGameByName(getUser(), gameName);
-			int nbRetry = 0;
-			while (game.isPending() && nbRetry < 10) {
-				try {
-					Thread.sleep(500);
-					nbRetry ++;
-				} catch (Exception e) {}
-			}
-			return "";
+		game = gameService.findGameById(getUser(), gameId);
+		int nbRetry = 0;
+		while (game.isPending() && nbRetry < 10) {
+			try {
+				Thread.sleep(500);
+				nbRetry++;
+			} catch (Exception e) {}
 		}
+		return "ko : pas assez de joueur";
 	}
 
 	// curl -i -H "Authorization: token=a9163371-790e-45ef-b800-6452698ae443" -X DELETE http://localhost:8080/codingame/rest/v1/game/22

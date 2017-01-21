@@ -11,6 +11,7 @@
 	<sec:http pattern="/images/**" security="none" />
 	<sec:http pattern="/resources/**" security="none" />
 	<sec:http pattern="/wro/**" security="none" />
+	<sec:http pattern="/rest/**" security="none" />
 	<sec:http pattern="/**/javax.faces.resource/**" security="none" />
 
 	<!-- Configuration pour l'application standard -->

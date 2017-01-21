@@ -10,15 +10,24 @@ public class UtilMaze {
 	
 	
 	public static String buildMaze(int w, int h) {
-		if(UtilRandom.chance(2)) {
-			return buildMaze1(w,h);
+		int r = UtilRandom.random(4);
+		
+		r = 3;
+		switch(r) {
+			case 0:return buildMaze1(w,h);
+			case 1:return buildMaze2(w,h,8);
+			case 2:return buildMaze2(w,h,5);
+			case 3:return buildMaze2(w,h,3);
 		}
-		return buildMaze2(w,h);
+		
+		return buildMaze2(w,h,8);
 	}
 	
 	
 	
 	public static String buildMaze1(int w, int h) {
+		System.out.println("building maze type 1");
+		
 		boolean[][] maze = generate(w,h);
 		StringBuffer b = new StringBuffer();
 		
@@ -30,10 +39,11 @@ public class UtilMaze {
 		return b.toString();
 	}
 	
-	public static String buildMaze2(int w, int h) {
+	public static String buildMaze2(int w, int h, int rate) {
+		System.out.println("building maze type 2 with rate="+rate);
+		
 		StringBuffer b = new StringBuffer();
 		int len = w*h;
-		int rate = len/4;
 		for (int i=0;i<len;i++) {
 			boolean isWall = UtilRandom.chance(rate);
 			char cell = UtilCell.buildCell(!isWall);

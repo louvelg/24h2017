@@ -4,8 +4,7 @@ public class UtilCell {
 
 	
 	public static char buildCell(boolean space) {
-		if(space) return ' ';
-		return '+';
+		return space?' ':'+';
 	}
 	
 	public static String addCells(String data, char[] values) {

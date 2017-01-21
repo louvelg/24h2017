@@ -17,6 +17,7 @@ import com.akelio.codingame.app.turn.entity.Turn;
 import com.akelio.codingame.app.turn.service.TurnService;
 import com.akelio.codingame.app.user.entity.User;
 import com.akelio.codingame.util.UtilEngine;
+import com.akelio.codingame.util.UtilThread;
 
 @Service("gameService")
 public class GameService extends BaseService {
@@ -84,25 +85,22 @@ public class GameService extends BaseService {
 		int nbMove = moveService.countNbMoveForIndice(gameId, indice);
 		while (nbMove < 4 && nbRetry <50) {
 			nbMove = moveService.countNbMoveForIndice(gameId, indice);
-			try {
-				Thread.sleep(500);
-			} catch (Exception e) {}
+			UtilThread.sleep(500);
 			nbRetry++;
 		}
 
 		Move[] moves = moveService.find4Moves(game, indice);
-		Turn turn = UtilEngine.computeNextTurn(game,indice,moves);
-		if(turn==null) return game;
+		Turn nextTurn = UtilEngine.computeNextTurn(game,indice,moves);
+		if(nextTurn==null) return game;
 		
-		boolean created = turnService.createTurn(turn);
+		boolean created = turnService.createTurn(nextTurn);
 		if (created) {
-			game.getTurnList().add(turn);
-			turnService.printTurn(turn);
-		} else {
-			game = findGameById(null, game.getGameId());
+			game.getTurnList().add(nextTurn);
+			turnService.printTurn(nextTurn);
+			return game;
 		}
 		
-		return game;
+		return findGameById(null, game.getGameId());
 	}
 	
 	

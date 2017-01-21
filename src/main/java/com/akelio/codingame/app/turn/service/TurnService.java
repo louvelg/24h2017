@@ -75,8 +75,8 @@ public class TurnService extends BaseService {
 		String g = turn.getData();
 		String line = null;
 		
-		int height = Integer.valueOf(map.getHeight());
-		int width = Integer.valueOf(map.getWidth());
+		int height = map.getHeightAsInt();
+		int width = map.getWidthAsInt();
 	
 		System.out.println("Game ID :: " + turn.getGameId() + " -- Turn ID :: " + turn.getTurnId()
 		+ "\n"

@@ -2,6 +2,7 @@ package com.akelio.codingame.util;
 
 import java.util.Date;
 import com.akelio.codingame.app.game.entity.Game;
+import com.akelio.codingame.app.map.entity.Map;
 import com.akelio.codingame.app.move.entity.Move;
 import com.akelio.codingame.app.turn.entity.Turn;
 
@@ -11,8 +12,10 @@ public class UtilEngine {
 	public static Turn computeNextTurn(Game game, String indice, Move[] moves) {
 		
 		Turn previous = game.getLastTurn();
-		int h = 0;
-		int w = 0;
+		Map map = game.getMap();
+		
+		int h = map.getHeightAsInt();
+		int w = map.getWidthAsInt();
 		String data = previous.getData();
 		
 		String directionA = moves[0].getDirection();

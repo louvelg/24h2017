@@ -51,8 +51,11 @@ public class TurnService extends BaseService {
 	}
 	
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public void createTurn(Turn turn) {
+	public synchronized boolean createTurn(Turn turn) {
+		if (findTurnForGameAndIndice(turn.getGameId(), turn.getIndice()) != null)
+			return false;
 		turnDAO.createTurn(turn);
+		return true;
 	}
 
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)

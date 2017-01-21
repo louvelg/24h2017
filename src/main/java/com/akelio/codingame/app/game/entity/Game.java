@@ -7,6 +7,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import com.akelio.base.BaseEntity;
+import com.akelio.codingame.app.map.entity.Map;
 import com.akelio.codingame.app.turn.entity.Turn;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -22,6 +23,7 @@ public class Game extends BaseEntity {
 	private Date		dateCreated;
 	private String		status;
 	private String		currentBot;
+	private Map			map;
 
 	private List<Turn>	turnList;
 
@@ -57,17 +59,15 @@ public class Game extends BaseEntity {
 		}
 		return -1;
 	}
-	
+
 	public String getBotIdForName(String name) {
-		if(name.equals("A")) return bot1Id;
-		if(name.equals("B")) return bot2Id;
-		if(name.equals("C")) return bot3Id;
-		if(name.equals("D")) return bot4Id;
-		
+		if (name.equals("A")) return bot1Id;
+		if (name.equals("B")) return bot2Id;
+		if (name.equals("C")) return bot3Id;
+		if (name.equals("D")) return bot4Id;
+
 		return null;
 	}
-	
-	
 
 	public String getId() {
 		return gameId;
@@ -149,17 +149,15 @@ public class Game extends BaseEntity {
 	public void setTurnList(List<Turn> turnList) {
 		this.turnList = turnList;
 	}
-	
+
 	public boolean hasTurns() {
-		return turnList!=null && turnList.size()>0;
+		return turnList != null && turnList.size() > 0;
 	}
 
 	public Turn getLastTurn() {
-		if(turnList==null || turnList.isEmpty()) return null;
-		return turnList.get(turnList.size()-1);
+		if (turnList == null || turnList.isEmpty()) return null;
+		return turnList.get(turnList.size() - 1);
 	}
-	
-
 
 	public String getCurrentBot() {
 		return currentBot;
@@ -168,7 +166,6 @@ public class Game extends BaseEntity {
 	public void setCurrentBot(String currentBot) {
 		this.currentBot = currentBot;
 	}
-	
 
 	public String getStatus() {
 		return status;
@@ -176,6 +173,13 @@ public class Game extends BaseEntity {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public Map getMap() {
+		return map;
+	}
+
+	public void setMap(Map map) {
+		this.map = map;
 	}
 
 	@Override

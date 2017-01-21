@@ -89,29 +89,29 @@ public class GameService extends BaseService {
 			} catch (Exception e) {}
 			nbRetry++;
 		}
-		
-		if (turnService.findTurnForGameAndIndice(game.getGameId(), indice) != null)
-			return game;
-		
+
 		Move[] moves = moveService.find4Moves(game, indice);
 		Turn turn = UtilEngine.computeNextTurn(game,indice,moves);
 		if(turn==null) return game;
 		
-		turnService.createTurn(turn);
-		game.getTurnList().add(turn);
-		turnService.printTurn(turn);
+		boolean created = turnService.createTurn(turn);
+		if (created) {
+			game.getTurnList().add(turn);
+			turnService.printTurn(turn);
+		} else {
+			game = findGameById(null, game.getGameId());
+		}
 		
 		return game;
 	}
 	
 	
 
-	
-	
-	
 	public Game findGameById(User currentUser, String gameId) {
 		List<Turn> turnList = turnService.findAllTurnForGame(gameId);
 		Game game = gameDAO.findGameById(gameId);
+		Map map = mapService.findMapById(null, game.getMapId());
+		game.setMap(map);
 		game.setTurnList(turnList);
 		return game;
 	}

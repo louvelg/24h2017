@@ -35,16 +35,15 @@
 						</h:outputText>
 					</div>
 
-					<p:dataList value="#{b.list}" var="var" type="none" rowIndexVar="ligne" id="ligne" styleClass="pull-left">
-						<div class="ligne">
-							<p:dataList value="#{var}" var="cell" type="none" rowIndexVar="colonne">
-								<p:outputPanel styleClass="case " layout="inline">
-									<h:outputText value="#{cell}" />
-									<img src="#{facesContext.externalContext.requestContextPath}/resources/inspinia/images/sprite_#{cell}.png" />
-								</p:outputPanel>
-							</p:dataList>
-						</div>
-					</p:dataList>
+					<div>
+						<p:dataList value="#{b.list}" var="var" type="none" rowIndexVar="ligne" id="ligne">
+							<div class="ligne">
+								<p:dataList value="#{var}" var="cell" type="none" rowIndexVar="colonne" style="margin: 0px;padding: 0px;height: 15px; width: 15px">
+										<img src="#{facesContext.externalContext.requestContextPath}/resources/images/sprite_#{cell}.png" />
+								</p:dataList>
+							</div>
+						</p:dataList>
+					</div>
 				</div>
 			</div>
 		</div>

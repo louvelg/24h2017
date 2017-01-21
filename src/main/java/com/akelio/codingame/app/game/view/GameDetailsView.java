@@ -44,13 +44,15 @@ public class GameDetailsView extends BaseView {
 			line = data.substring(width * i, width * i + width);
 			l1 = new ArrayList<>();
 			for (int j = 0; j < line.length(); j++) {
-				l1.add(String.valueOf(line.charAt(j)));
+				l1.add(String.valueOf(line.charAt(j)).replace(" ", "empty"));
 			}
 			System.out.println(line);
 			list.add(l1);
 		}
 	}
 
+	
+	
 	public Game getGame() {
 		return game;
 	}

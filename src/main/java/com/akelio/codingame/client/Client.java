@@ -3,9 +3,6 @@ package com.akelio.codingame.client;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Map;
-
-import org.apache.tools.ant.taskdefs.Sleep;
-
 import com.akelio.codingame.client.json.UtilJson;
 
 public class Client {
@@ -60,9 +57,11 @@ public class Client {
 					.replace("{indice}", (String) data.get("currentBot"))
 					.replace("{gameId}", (String) data.get("gameId"))
 					.replace("{move}", (String) getCoordinate());
+			System.out.println("indice : " + (String) data.get("currentBot") + " urlGame = " + urlGame_);
 			
 			URL urlGame = new URL(urlGame_);
 			URLConnection conGame = (URLConnection) urlGame.openConnection();
+			Thread.sleep(100);
 		}
 	}
 

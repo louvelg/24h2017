@@ -41,7 +41,13 @@ repositories {
 	mavenCentral()
 	maven { url "http://repo.spring.io/libs-snapshot" }
 	maven { url "http://repository.primefaces.org" }
-//	maven { url "https://mymavenrepo.com/repo/d3AlT8SFv15RtCzFQRup" }
+	maven {
+		url "https://mymavenrepo.com/repo/d3AlT8SFv15RtCzFQRup"
+		credentials {
+			username 'myMavenRepo'
+			password 'akeliopass'
+		}
+	}
 }
 
 configurations { providedRuntime }

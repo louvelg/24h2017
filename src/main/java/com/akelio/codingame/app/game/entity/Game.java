@@ -24,7 +24,6 @@ public class Game extends BaseEntity {
 	private String		currentBot;
 
 	private List<Turn>	turnList;
-	private Turn		lastTurn;
 
 	public Game() {
 		turnList = new ArrayList<>();
@@ -145,11 +144,8 @@ public class Game extends BaseEntity {
 	}
 
 	public Turn getLastTurn() {
-		return lastTurn;
-	}
-
-	public void setLastTurn(Turn lastTurn) {
-		this.lastTurn = lastTurn;
+		if(turnList==null || turnList.isEmpty()) return null;
+		return turnList.get(turnList.size()-1);
 	}
 	
 

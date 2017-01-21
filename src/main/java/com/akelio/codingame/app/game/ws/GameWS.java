@@ -88,7 +88,7 @@ public class GameWS extends BaseWS {
 	
 
 	// curl -i -X GET http://localhost:8080/codingame/rest/v1/bot/1/game/1/move/N
-	@RequestMapping(value = "/bot/{botId}/game/{gameId}/move/{move}", method = RequestMethod.GET)
+	@RequestMapping(value = "/bot/{indice}/game/{gameId}/move/{move}", method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
 	public Game move(@PathVariable String indice,@PathVariable String gameId, @PathVariable String move) {
 		Game game = gameService.nextTurn(gameId, indice, move);

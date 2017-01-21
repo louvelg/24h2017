@@ -22,31 +22,37 @@
 					</h:link>
 				</div>
 			</div>
-		</h:form>
-		<div class="wrapper wrapper-content">
-			<div class="ibox">
-				<div class="ibox-content">
-					<div>
-						<h:outputText value="Partie : #{b.game.gameId}" />
-					</div>
-					<div>
-						<h:outputText value="#{b.game.dateCreated}">
-							<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
-						</h:outputText>
-					</div>
-
-					<div>
-						<p:dataList value="#{b.list}" var="var" type="none" rowIndexVar="ligne" id="ligne">
-							<div class="ligne">
-								<p:dataList value="#{var}" var="cell" type="none" rowIndexVar="colonne" style="margin: 0px;padding: 0px;height: 15px; width: 15px">
-										<img src="#{facesContext.externalContext.requestContextPath}/resources/images/sprite_#{cell}.png" />
-								</p:dataList>
-							</div>
-						</p:dataList>
+			<div class="wrapper wrapper-content">
+				<div class="ibox">
+					<div class="ibox-content">
+						<div>
+							<h:outputText value="Partie : #{b.game.gameId}" />
+						</div>
+						<div>
+							<h:outputText value="Tour : #{b.turnIndice} / #{b.lastIndice}" />
+						</div>
+						<div>
+							<h:outputText value="#{b.game.dateCreated}">
+								<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+							</h:outputText>
+						</div>
+						<div>
+							<h:commandLink action="#{b.previousTurn}" styleClass="btn btn-primary">Précédent</h:commandLink>
+							<h:commandLink action="#{b.nextTurn}" styleClass="btn btn-primary">Suivant</h:commandLink>
+						</div>
+						<div>
+							<p:dataList value="#{b.list}" var="var" type="none" rowIndexVar="ligne" id="ligne">
+								<div class="ligne" style="font-size: 14px;">
+									<p:dataList value="#{var}" var="cell" type="none" rowIndexVar="colonne">
+										<img src="#{facesContext.externalContext.requestContextPath}/resources/images/sprite_#{cell}.png" style="" />
+									</p:dataList>
+								</div>
+							</p:dataList>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</h:form>
 	</ui:define>
 </ui:composition>
 </html>

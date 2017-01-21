@@ -71,12 +71,6 @@ public class AuthenticationView extends BaseView {
 			SecurityContextHolder.getContext().setAuthentication(result);
 
 			User user = (User) result.getPrincipal();
-			if (user.getTenantId().equals("0")) {
-				logger.info("***** Erreur de Login : {}", login);
-				Jsf.error(getMessage("badlogin"));
-				return "";
-			}
-
 			VisitBean visit = new VisitBean();
 			visit.setUser(user);
 			

@@ -25,13 +25,9 @@ public class DAOAuthenticationProvider implements AuthenticationProvider {
 		User user = userService.findUserNotDisableByLogin(name);
 		if (user != null) {
 			if (password.equals(user.getPassword())) {
-				if (user.isEnable()) {
-					List<GrantedAuthority> grantedAuths = new ArrayList<>();
-					grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
-					return new UsernamePasswordAuthenticationToken(user, password, grantedAuths);
-				} else {
-					throw new BadCredentialsException("User is disabled");
-				}
+				List<GrantedAuthority> grantedAuths = new ArrayList<>();
+				grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
+				return new UsernamePasswordAuthenticationToken(user, password, grantedAuths);
 
 			} else {
 				throw new BadCredentialsException("Enter a valid username and password");

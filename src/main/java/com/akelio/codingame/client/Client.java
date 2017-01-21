@@ -60,10 +60,11 @@ public class Client {
 					.replace("{indice}", (String) data.get("currentBot"))
 					.replace("{gameId}", (String) data.get("gameId"))
 					.replace("{move}", (String) getCoordinate());
+			System.out.println("indice : " + (String) data.get("currentBot") + " urlGame = " + urlGame_);
 			
 			URL urlGame = new URL(urlGame_);
 			URLConnection conGame = (URLConnection) urlGame.openConnection();
-			String resGame = Util.retrieveString(conGame);
+			Thread.sleep(100);
 		}
 	}
 

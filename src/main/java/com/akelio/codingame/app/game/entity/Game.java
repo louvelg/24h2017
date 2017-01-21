@@ -1,10 +1,13 @@
 package com.akelio.codingame.app.game.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import com.akelio.base.BaseEntity;
+import com.akelio.codingame.app.turn.entity.Turn;
 
 
 public class Game extends BaseEntity {
@@ -17,6 +20,46 @@ public class Game extends BaseEntity {
 	private String bot3Id;
 	private String bot4Id;
 	private Date dateCreated;
+	
+	private List<Turn> turnList;
+	
+	
+	public Game() {
+		turnList = new ArrayList<>();
+	}
+
+
+	public boolean isPending() {
+		if(bot1Id==null) return true;
+		if(bot2Id==null) return true;
+		if(bot3Id==null) return true;
+		if(bot4Id==null) return true;
+		
+		return false;
+	}
+	
+	
+	public int setNextBotId(String botId) {
+		if(bot1Id==null) {
+			bot1Id = botId;
+			return 1;
+		}
+		if(bot2Id==null) {
+			bot2Id = botId;
+			return 2;
+		}
+		if(bot3Id==null) {
+			bot3Id = botId;
+			return 3;
+		}
+		if(bot4Id==null) {
+			bot4Id = botId;
+			return 4;
+		}
+		return -1;
+	}
+	
+	
 
 	public String getId() {
 		return gameId;
@@ -89,6 +132,15 @@ public class Game extends BaseEntity {
 	public void setDateCreated(Date dateCreated) {
 		this.dateCreated = dateCreated;
 	}
+	
+	public List<Turn> getTurnList() {
+		return turnList;
+	}
+	
+	public void setTurnList(List<Turn> turnList) {
+		this.turnList = turnList;
+	}
+	
 	
 	@Override
 	public int hashCode() {

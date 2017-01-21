@@ -23,7 +23,12 @@ public class GameService extends BaseService {
 	MapService	mapService;
 	@Autowired
 	TurnService	turnService;
-	public void init(Game game) {
+	
+	
+	public synchronized void init(String gameId) {
+		Game game = findGameById(null, gameId);
+		if(game.hasTurns()) return;
+		
 		Turn turn = new Turn();
 		turn.setIndice("1");
 		turn.setGameId(game.getGameId());
@@ -42,9 +47,9 @@ public class GameService extends BaseService {
 				+"  4   6   "
 				+"          "
 				+"B        D");
+		
 		turnService.createTurn(turn);
 		game.setLastTurn(turn);
-		game.getTurnList().add(turn);
 	}
 
 	

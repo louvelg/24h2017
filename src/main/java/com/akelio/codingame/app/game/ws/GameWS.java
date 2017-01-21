@@ -72,8 +72,18 @@ public class GameWS extends BaseWS {
 		}
 		
 		System.out.println("initializing game");
-		gameService.init(game);
+		gameService.init(gameId);
+		game.setCurrentBot(getCurrentBot(index));
 		return game;
+	}
+	
+	private String getCurrentBot(int index) {
+		if(index==1) return "A";
+		if(index==2) return "B";
+		if(index==3) return "C";
+		if(index==4) return "D";
+		
+		return "";
 	}
 	
 

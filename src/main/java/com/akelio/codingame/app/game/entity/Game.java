@@ -21,6 +21,7 @@ public class Game extends BaseEntity {
 	private String		bot4Id;
 	private Date		dateCreated;
 	private String		status;
+	private String		currentBot;
 
 	private List<Turn>	turnList;
 	private Turn		lastTurn;
@@ -138,6 +139,10 @@ public class Game extends BaseEntity {
 	public void setTurnList(List<Turn> turnList) {
 		this.turnList = turnList;
 	}
+	
+	public boolean hasTurns() {
+		return turnList!=null && turnList.size()>0;
+	}
 
 	public Turn getLastTurn() {
 		return lastTurn;
@@ -146,6 +151,17 @@ public class Game extends BaseEntity {
 	public void setLastTurn(Turn lastTurn) {
 		this.lastTurn = lastTurn;
 	}
+	
+
+
+	public String getCurrentBot() {
+		return currentBot;
+	}
+
+	public void setCurrentBot(String currentBot) {
+		this.currentBot = currentBot;
+	}
+	
 
 	public String getStatus() {
 		return status;

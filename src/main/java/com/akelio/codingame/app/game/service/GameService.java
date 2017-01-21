@@ -56,7 +56,7 @@ public class GameService extends BaseService {
 				+"B        D");
 		
 		turnService.createTurn(turn);
-		game.setLastTurn(turn);
+		game.getTurnList().add(turn);
 	}
 
 	
@@ -135,8 +135,8 @@ public class GameService extends BaseService {
 		}
 		
 		Turn turn = createNextTurn(game, applyMoveToMap(lastMap, move1, move2, move3, move4));
-		game.setLastTurn(turn);
 		game.getTurnList().add(turn);
+		
 		return game;
 	}
 
@@ -151,15 +151,17 @@ public class GameService extends BaseService {
 		Turn turn = new Turn();
 		turn.setIndice(String.valueOf(game.getTurnList().size()+1));
 		turn.setGameId(game.getGameId());
+		
 		turn.setAmountBot1("0");
 		turn.setAmountBot2("0");
 		turn.setAmountBot3("0");
 		turn.setAmountBot4("0");
 		turn.setData(nextMap);
 		turnService.createTurn(turn);
-		game.setLastTurn(turn);
 		game.getTurnList().add(turn);
+		
 		turnService.printTurn(turn);
+		
 		return turn;
 	}
 

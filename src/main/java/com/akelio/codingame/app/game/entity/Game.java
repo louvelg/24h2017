@@ -8,6 +8,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import com.akelio.base.BaseEntity;
 import com.akelio.codingame.app.turn.entity.Turn;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Game extends BaseEntity {
 
@@ -19,6 +20,7 @@ public class Game extends BaseEntity {
 	private String		bot3Id;
 	private String		bot4Id;
 	private Date		dateCreated;
+	private String		status;
 
 	private List<Turn>	turnList;
 	private Turn		lastTurn;
@@ -128,6 +130,7 @@ public class Game extends BaseEntity {
 		this.dateCreated = dateCreated;
 	}
 
+	@JsonIgnore
 	public List<Turn> getTurnList() {
 		return turnList;
 	}
@@ -142,6 +145,14 @@ public class Game extends BaseEntity {
 
 	public void setLastTurn(Turn lastTurn) {
 		this.lastTurn = lastTurn;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	@Override

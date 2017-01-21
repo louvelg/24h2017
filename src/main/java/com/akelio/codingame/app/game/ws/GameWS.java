@@ -4,14 +4,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import com.akelio.codingame.base.BaseWS;
-import com.akelio.codingame.app.game.service.GameService;
 import com.akelio.codingame.app.game.entity.Game;
+import com.akelio.codingame.app.game.service.GameService;
+import com.akelio.codingame.base.BaseWS;
 
 @RestController
 public class GameWS extends BaseWS {
@@ -44,10 +43,10 @@ public class GameWS extends BaseWS {
 		return game;
 	}
 
-	// curl -i -H "Content-type: application/json" -X PUT http://localhost:8080/codingame/rest/v1/game/22 -d "{\"gameId\":gameId, \"name\":name, \"mapId\":mapId, \"bot1Id\":bot1Id, \"bot2Id\":bot2Id, \"bot3Id\":bot3Id, \"bot4Id\":bot4Id, \"dateCreated\":dateCreated}"
+	// curl -i -X GET http://localhost:8080/codingame/rest/v1/user/1/signin/2
 	@RequestMapping(value = "/user/{botId}/signin/{gameId}", method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
-	public String signinGame(@PathVariable String botId, @PathVariable String gameId) {
+	public Game signinGame(@PathVariable String botId, @PathVariable String gameId) {
 		Game game = gameService.findGameById(getUser(), gameId);
 		int index = game.setNextBotId(botId);
 		gameService.updateGame(getUser(), game);
@@ -60,11 +59,22 @@ public class GameWS extends BaseWS {
 			nbRetry++;
 		}
 		if (game.isPending()) {
-			return "ko : pas assez de joueur";
+			Game g = new Game();
+			g.setStatus("ko : pas assez de joueur");
+			return g;
 		}
 		gameService.init(game);
-		
-		return ""+index;
+
+		return game;
+	}
+
+	// curl -i -X GET http://localhost:8080/codingame/rest/v1/bot/1/move/N
+	@RequestMapping(value = "/bot/{botId}/game/{gameId}/move/{move}", method = RequestMethod.GET)
+	@ResponseStatus(value = HttpStatus.OK)
+	public Game move(@PathVariable String botId,@PathVariable String gameId, @PathVariable String move) {
+		Game game = gameService.findGameById(getUser(), gameId);
+		gameService.nextTurn(game);
+		return game;
 	}
 
 	// curl -i -H "Authorization: token=a9163371-790e-45ef-b800-6452698ae443" -X DELETE http://localhost:8080/codingame/rest/v1/game/22

@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import com.akelio.base.BaseService;
-
 import com.akelio.codingame.app.turn.dao.TurnDAO;
 import com.akelio.codingame.app.turn.entity.Turn;
 import com.akelio.codingame.app.user.entity.User;
@@ -23,6 +22,10 @@ public class TurnService extends BaseService {
 
 	public List<Turn> findAllTurn(User currentUser) {
 		return turnDAO.findAllTurn();
+	}
+	
+	public List<Turn> findAllTurnForGame(String gameId) {
+		return turnDAO.findAllTurnForGame(gameId);
 	}
 
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)

@@ -31,7 +31,7 @@ public class MoveCreateView extends BaseView {
 
 	public String createMove() {
 		
-		moveService.createMove(getUser(), move);
+//		moveService.createMove(getUser(), move);
 		return "pretty:viewMoveList";
 	}
 

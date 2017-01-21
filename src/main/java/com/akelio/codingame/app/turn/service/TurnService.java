@@ -32,6 +32,10 @@ public class TurnService extends BaseService {
 	public Turn findTurnById(User currentUser, String turnId) {
 		return turnDAO.findTurnById(turnId);
 	}
+	
+	public Turn findTurnForGameAndIndice(String gameId, String indice) {
+		return turnDAO.findTurnForGameAndIndice(gameId, indice);
+	}
 
 	public List<Turn> findAllTurn(User currentUser) {
 		return turnDAO.findAllTurn();

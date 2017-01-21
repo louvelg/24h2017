@@ -33,8 +33,8 @@ public class MoveService extends BaseService {
 	}
 	
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public void createMove(User currentUser, Move move) {
-		Move m = moveDAO.findMoveByGameAndIndice(move.getGameId(), move.getIndice());
+	public void createMove(User currentUser, String indiceBot, Move move) {
+		Move m = moveDAO.findMoveByGameAndIndice(move.getGameId(), move.getIndice(), indiceBot);
 		if (m == null) {
 			moveDAO.createMove(move);
 		}

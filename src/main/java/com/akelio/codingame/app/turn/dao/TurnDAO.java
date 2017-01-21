@@ -19,6 +19,10 @@ public class TurnDAO extends BaseDAO<Turn> {
 	public Turn findTurnById(String turnId) {
 		return getOne("select " + fields() + " from turn where turn_id = ? ", new TurnMapper(), turnId);
 	}
+	
+	public Turn findTurnForGameAndIndice(String gameId, String indice) {
+		return getOne("select " + fields() + " from turn where game_id = ? and indice = ? ", new TurnMapper(), gameId, indice);
+	}
 
 	public List<Turn> findAllTurn() {
 		return getList("select " + fields() + " from turn ", new TurnMapper());

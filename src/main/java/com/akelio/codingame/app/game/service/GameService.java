@@ -154,6 +154,9 @@ public class GameService extends BaseService {
 		turn.setAmountBot4("0");
 		turn.setData(nextMap);
 		turnService.createTurn(turn);
+		game.setLastTurn(turn);
+		game.getTurnList().add(turn);
+		turnService.printTurn(turn);
 		return turn;
 	}
 

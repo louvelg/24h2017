@@ -61,18 +61,10 @@ public class MoveService extends BaseService {
 		Move move4 = null;
 		
 		for (Move m : moveList) {
-			if (m.getBotName().equals("A")) {
-				move1 = m;
-			}
-			if (m.getBotName().equals("B")) {
-				move2 = m;
-			}
-			if (m.getBotName().equals("C")) {
-				move3 = m;
-			}
-			if (m.getBotName().equals("D")) {
-				move4 = m;
-			}
+			if (m.getBotName().equals("A")) move1 = m;
+			if (m.getBotName().equals("B"))	move2 = m;
+			if (m.getBotName().equals("C")) move3 = m;
+			if (m.getBotName().equals("D")) move4 = m;
 		}
 		return new Move[]{move1,move2,move3,move4};
 	}

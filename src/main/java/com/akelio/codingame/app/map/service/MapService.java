@@ -9,8 +9,9 @@ import com.akelio.base.BaseService;
 import com.akelio.codingame.app.map.dao.MapDAO;
 import com.akelio.codingame.app.map.entity.Map;
 import com.akelio.codingame.app.user.entity.User;
-import com.akelio.codingame.util.UtilEngine;
+import com.akelio.codingame.util.UtilCell;
 import com.akelio.codingame.util.UtilMaze;
+import com.akelio.codingame.util.UtilRandom;
 
 @Service("mapService")
 public class MapService extends BaseService {
@@ -40,7 +41,7 @@ public class MapService extends BaseService {
 		
 		int minSomme = 5;
 		int maxSomme = 20;
-		String mapName = "Map-"+UtilEngine.random(1000);
+		String mapName = "Map-"+UtilRandom.random(1000);
 		
 		Map map = new Map();
 		
@@ -52,8 +53,8 @@ public class MapService extends BaseService {
 		map.setName(mapName);
 		
 		String data = UtilMaze.buildMaze(height,width);
-		data = UtilMaze.addCells(data,cellsBot);
-		data = UtilMaze.addCells(data,cellsSomme);
+		data = UtilCell.addCells(data,cellsBot);
+		data = UtilCell.addCells(data,cellsSomme);
 		
 		map.setData(data);
 		

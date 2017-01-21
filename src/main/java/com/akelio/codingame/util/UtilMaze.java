@@ -8,74 +8,43 @@ public class UtilMaze {
 	public static final double MUTATION = 0.05;
 	
 	
-	public static String addCells(String data, char[] values) {
-		
-		int valuesNb = values.length;
-		if(valuesNb==0) return data;
-		
-		int left = countLeft(data);
-		if(left<valuesNb) throw new RuntimeException("Invalid data: "+data);
-		
-		int[] pos = new int[valuesNb];
-		for(int i=0;i<valuesNb;i++) {
-			pos[i] = random(left-i);
-		}
-		for(int i=0;i<valuesNb;i++) {
-			data = changeCellAt(data,pos[i],values[i]);
-		}
-		return data;
-	}
-	
-	
-	
-	private static String changeCellAt(String data, int pos, char c1) {
-		
-		int left = 0;
-		int len = data.length();
-		StringBuffer b = new StringBuffer();
-		
-		for(int i=0;i<len;i++) {
-			char c0 = data.charAt(i);
-			if(c0==' ') left++;
-			
-			char c = (c0==' ' && left==pos) ? c1 : c0;
-			b.append(c);
-		}
-		return b.toString();
-	}
-	
-	
-	private static int countLeft(String data) {
-		int left = 0;
-		int len = data.length();
-		
-		for(int i=0;i<len;i++) {
-			if(data.charAt(i)==' ') left++;
-		}
-		return left;
-	}
-	
 	
 	public static String buildMaze(int w, int h) {
+		if(UtilRandom.chance(2)) {
+			return buildMaze1(w,h);
+		}
+		return buildMaze2(w,h);
+	}
+	
+	
+	
+	public static String buildMaze1(int w, int h) {
 		boolean[][] maze = generate(w,h);
 		StringBuffer b = new StringBuffer();
 		
 		for (int i = 0; i < w; i++)
 		for (int j = 0; j < h; j++) {
-			char cell = buildCell(maze[i][j]);
+			char cell = UtilCell.buildCell(maze[i][j]);
 			b.append(cell);
 		}
 		return b.toString();
 	}
 	
-	private static char buildCell(boolean space) {
-		if(space) return ' ';
-		return '+';
+	public static String buildMaze2(int w, int h) {
+		StringBuffer b = new StringBuffer();
+		int len = w*h;
+		int rate = len/4;
+		for (int i=0;i<len;i++) {
+			boolean isWall = UtilRandom.chance(rate);
+			char cell = UtilCell.buildCell(!isWall);
+			b.append(cell);
+		}
+
+		return b.toString();
 	}
 	
-	private static int random(int limit) {
-		return (int) (Math.random()*limit);
-	}
+	
+	
 	
 
 	private static boolean[][] generate(int w, int h)

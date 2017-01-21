@@ -15,8 +15,8 @@ public class MainForTest {
 	
 	private static void genMaze() {
 		String data = UtilMaze.buildMaze(50, 50);
-		data = UtilMaze.addCells(data,new char[]{'A','B','C','D'});
-		data = UtilMaze.addCells(data,new char[]{'1','2','3','4','5','6'});
+		data = UtilCell.addCells(data,new char[]{'A','B','C','D'});
+		data = UtilCell.addCells(data,new char[]{'1','2','3','4','5','6'});
 		
 		UtilPrint.printDataMap(data, 50, 50);
 	}
@@ -33,8 +33,8 @@ public class MainForTest {
 		char[] bots = new char[]{'A','B','C','D'};
 		
 		String data = UtilMaze.buildMaze(w,h);
-		data = UtilMaze.addCells(data,bots);
-		data = UtilMaze.addCells(data,sommes);
+		data = UtilCell.addCells(data,bots);
+		data = UtilCell.addCells(data,sommes);
 		
 		UtilPrint.printDataMap(data, w, h);
 		

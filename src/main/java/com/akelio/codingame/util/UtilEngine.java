@@ -82,11 +82,11 @@ public class UtilEngine {
 		
 		char[] newTargets = new char[taken];
 		for(int i=0;i<taken;i++) {
-			int newSomme = minSomme + random(maxSomme-minSomme);
+			int newSomme = UtilRandom.random(minSomme,maxSomme);
 			newTargets[i] = (""+newSomme).charAt(0);
 		}
 		
-		String data1 = UtilMaze.addCells(data.toString(),newTargets);
+		String data1 = UtilCell.addCells(data.toString(),newTargets);
 		
 		Turn turn = new Turn();
 		turn.setIndice(indice);
@@ -147,9 +147,5 @@ public class UtilEngine {
 	
 	private static int convert2Dto1D(int w, int h, int x, int y) {
 		return w*x+y;
-	}
-	
-	public static int random(int limit) {
-		return (int) (Math.random()*limit);
 	}
 }

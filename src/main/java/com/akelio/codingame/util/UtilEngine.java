@@ -159,11 +159,11 @@ public class UtilEngine {
 	
 	
 
-	private static int[] convert1Dto2D(int w, int h, int pos) {
+	public static int[] convert1Dto2D(int w, int h, int pos) {
 		return new int[]{pos/w,pos%h};
 	}
 	
-	private static int convert2Dto1D(int w, int h, int x, int y) {
+	public static int convert2Dto1D(int w, int h, int x, int y) {
 		return w*x+y;
 	}
 }

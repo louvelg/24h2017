@@ -94,7 +94,7 @@ public class AuthenticationView extends BaseView {
 				url = savedRequest.getRedirectUrl();
 			}
 			if (url == null) {
-				return "pretty:viewUserDashboard";
+				return "pretty:viewGameList";
 			} else {
 				try {
 					Jsf.redirectLogin(url);

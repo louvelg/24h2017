@@ -29,7 +29,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="row">
+						<p:outputPanel styleClass="row" id="step">
 							<div class="col-lg-12">
 								<div>
 									<h1>
@@ -37,19 +37,20 @@
 									</h1>
 								</div>
 							</div>
-						</div>
-						<div class="row">
+						</p:outputPanel>
+						<p:outputPanel styleClass="row" id="progress">
 							<div class="col-lg-12">
-									<div class="progress progress-striped active bg-white">
-						<div style="width: #{b.percent}" 
-							aria-valuemax=" #{b.lastIndice}" 
-							aria-valuemin="0" 
-							aria-valuenow="#{b.turnIndice} " 
-							role="progressbar"
-							class="progress-bar progress-bar-success">
-						</div>
-					</div>
-				</div></div>		
+								<div class="progress progress-striped active bg-white">
+									<div style="width: #{b.percent}" 
+										aria-valuemax=" #{b.lastIndice}" 
+										aria-valuemin="0" 
+										aria-valuenow="#{b.turnIndice} " 
+										role="progressbar"
+										class="progress-bar progress-bar-success">
+									</div>
+								</div>
+							</div>
+						</p:outputPanel>
 						
 						<div class="row">
 							<div class="col-lg-12">
@@ -59,17 +60,17 @@
 						<div class="row">
 							<div class="col-lg-12">
 								<div>
-									<h:commandLink action="#{b.previousTurn}" styleClass="btn btn-primary m-r-xs">Précédent</h:commandLink>
+									<p:commandLink action="#{b.previousTurn}" styleClass="btn btn-primary m-r-xs" update="map progress step">Précédent</p:commandLink>
 									<a onclick="play();" href="#" class="btn btn-primary m-r-xs">Play</a>
 									<a onclick="stop();" href="#" class="btn btn-primary m-r-xs">Stop</a>
-									<h:commandLink action="#{b.nextTurn}" styleClass="btn btn-primary">Suivant</h:commandLink>
+									<p:commandLink action="#{b.nextTurn}" styleClass="btn btn-primary" update="map progress step">Suivant</p:commandLink>
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-lg-12 m-t-md">
 								<div>
-									<p:dataList value="#{b.list}" var="var" type="none" rowIndexVar="ligne" id="ligne">
+									<p:dataList id="map" value="#{b.list}" var="var" type="none" rowIndexVar="ligne">
 										<div class="ligne" style="height: 20px !important;">
 											<p:dataList value="#{var}" var="cell" type="none" rowIndexVar="colonne" style="margin: 0px;padding: 0px;height: 15px; width: 15px">
 												<img src="#{facesContext.externalContext.requestContextPath}/resources/images/sprite_#{cell}.png" style="margin-right: -5px !important;" />
@@ -97,7 +98,7 @@
 					if (start) {
 						refreshNext();
 					}
-					}, 1000);
+					}, 500);
 				};
 			}
 		function stop() {

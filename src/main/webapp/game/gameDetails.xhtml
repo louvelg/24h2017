@@ -75,12 +75,16 @@
 							<div class="col-lg-12 m-t-md">
 								<div>
 									<img src="#{facesContext.externalContext.requestContextPath}/resources/images/sprite_big_A.png" />
+									<div style="display: inline-block;">#{b.bot1Name}</div>
 									<h:outputText value="#{b.winnerFinal == 'A'?'VICTOIRE ':''}#{b.amount1}" styleClass="btn #{b.winner == 'A'?'btn-success':'btn-white'} m-r-xs m-l-xs"/>
 									<img src="#{facesContext.externalContext.requestContextPath}/resources/images/sprite_big_B.png" />
+									<div style="display: inline-block;">#{b.bot2Name}</div>
 									<h:outputText value="#{b.winnerFinal == 'B'?'VICTOIRE ':''}#{b.amount2}" styleClass="btn #{b.winner == 'B'?'btn-success':'btn-white'} m-r-xs m-l-xs" />
 									<img src="#{facesContext.externalContext.requestContextPath}/resources/images/sprite_big_C.png" />
+									<div style="display: inline-block;">#{b.bot3Name}</div>
 									<h:outputText value="#{b.winnerFinal == 'C'?'VICTOIRE ':''}#{b.amount3}" styleClass="btn #{b.winner == 'C'?'btn-success':'btn-white'} m-r-xs m-l-xs" />
 									<img src="#{facesContext.externalContext.requestContextPath}/resources/images/sprite_big_D.png" />
+									<div style="display: inline-block;">#{b.bot4Name}</div>
 									<h:outputText value="#{b.winnerFinal == 'D'?'VICTOIRE ':''}#{b.amount4}" styleClass="btn #{b.winner == 'D'?'btn-success':'btn-white'} m-r-xs m-l-xs" />
 								</div>
 							</div>

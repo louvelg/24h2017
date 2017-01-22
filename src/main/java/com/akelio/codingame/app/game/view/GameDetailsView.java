@@ -10,6 +10,8 @@ import javax.faces.bean.ViewScoped;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.akelio.codingame.app.bot.entity.Bot;
+import com.akelio.codingame.app.bot.service.BotService;
 import com.akelio.codingame.app.game.entity.Game;
 import com.akelio.codingame.app.game.service.GameService;
 import com.akelio.codingame.app.map.entity.Map;
@@ -26,6 +28,8 @@ public class GameDetailsView extends BaseView {
 
 	@Autowired
 	private transient GameService	gameService;
+	@Autowired
+	private transient BotService	botService;
 
 	private Game					game;
 	private List<List<String>>		list;
@@ -40,6 +44,11 @@ public class GameDetailsView extends BaseView {
 	private int						amount3;
 	private int						amount4;
 
+	private String					bot1Name;
+	private String					bot2Name;
+	private String					bot3Name;
+	private String					bot4Name;
+
 	private String					winner;
 	private String					winnerFinal;
 
@@ -47,9 +56,22 @@ public class GameDetailsView extends BaseView {
 	public void init() {
 		initBean();
 		game = gameService.findGameById(getUser(), getParam("gameId"));
+
 		lastIndice = game.getTurnList().size();
 		turnIndice = 1;
+		initBotName();
 		refreshListData();
+	}
+
+	private void initBotName() {
+		Bot bot = botService.findBotById(null, game.getBot1Id());
+		bot1Name = bot.getName();
+		bot = botService.findBotById(null, game.getBot2Id());
+		bot2Name = bot.getName();
+		bot = botService.findBotById(null, game.getBot3Id());
+		bot3Name = bot.getName();
+		bot = botService.findBotById(null, game.getBot4Id());
+		bot4Name = bot.getName();
 	}
 
 	private void refreshListData() {
@@ -123,7 +145,7 @@ public class GameDetailsView extends BaseView {
 		refreshListData();
 		return "";
 	}
-	
+
 	public String firstTurn() {
 		turnIndice = 1;
 		refreshListData();
@@ -255,6 +277,38 @@ public class GameDetailsView extends BaseView {
 
 	public void setWinnerFinal(String winnerFinal) {
 		this.winnerFinal = winnerFinal;
+	}
+
+	public String getBot1Name() {
+		return bot1Name;
+	}
+
+	public void setBot1Name(String bot1Name) {
+		this.bot1Name = bot1Name;
+	}
+
+	public String getBot2Name() {
+		return bot2Name;
+	}
+
+	public void setBot2Name(String bot2Name) {
+		this.bot2Name = bot2Name;
+	}
+
+	public String getBot3Name() {
+		return bot3Name;
+	}
+
+	public void setBot3Name(String bot3Name) {
+		this.bot3Name = bot3Name;
+	}
+
+	public String getBot4Name() {
+		return bot4Name;
+	}
+
+	public void setBot4Name(String bot4Name) {
+		this.bot4Name = bot4Name;
 	}
 
 	public Logger getLogger() {

@@ -32,26 +32,14 @@ public class MapService extends BaseService {
 
 	
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public Map createMap(User currentUser, String params) {
+	public Map createMap(User currentUser, String[] paramsArray) {
 		
-		//type 0 : labyrithme
-		//type 1 : blocs aléatoires (dense)
-		//type 2 : blocs aléatoires (moyen)
-		//type 3 : blocs aléatoires (parsemé)
-		//type 4 : blocs aléatoires (très parsemé)
-		//type 5 : pas de blocs (map vide)
-		
-		if(params.equals("no"))
-			params = "20-20-5-1-9-6";
-		
-		String[] nn = params.split("-");
-		
-		int height = toInt(nn[0]);
-		int width = toInt(nn[1]);
-		int mapType = toInt(nn[2]);
-		int minSomme = toInt(nn[3]);
-		int maxSomme = toInt(nn[4]);
-		int nbSomme = toInt(nn[5]);
+		int height = toInt(paramsArray[1]);
+		int width = toInt(paramsArray[2]);
+		int mapType = toInt(paramsArray[3]);
+		int minSomme = toInt(paramsArray[4]);
+		int maxSomme = toInt(paramsArray[5]);
+		int nbSomme = toInt(paramsArray[6]);
 		
 		char[] cellsBot = new char[]{'A','B','C','D'};
 		char[] cellsSomme = UtilEngine.buildSommeCells(nbSomme,minSomme,maxSomme);	

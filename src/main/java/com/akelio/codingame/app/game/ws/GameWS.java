@@ -41,7 +41,6 @@ public class GameWS extends BaseWS {
 	public Game createGame(@PathVariable String params) {
 		Game game = new Game();
 		gameService.createGame(getUser(), game, params);
-		game.setName("game" + game.getGameId());
 		return game;
 	}
 	

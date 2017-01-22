@@ -109,3 +109,6 @@ CREATE TABLE IF NOT EXISTS move (
         `date_created` datetime,
         PRIMARY KEY  (move_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+ALTER TABLE `game` ADD COLUMN `max_turn` VARCHAR(100) NULL DEFAULT '';

@@ -49,7 +49,7 @@ public class BotEddy implements Bot {
 	}
 	
 	public String getId() {
-		return "botEddy";
+		return "4";
 	}
 
 }

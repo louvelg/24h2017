@@ -32,7 +32,7 @@ public class MapService extends BaseService {
 
 	
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public Map createMap(User currentUser, int[] params) {
+	public Map createMap(User currentUser, String params) {
 		
 		//type 0 : labyrithme
 		//type 1 : blocs aléatoires (dense)
@@ -41,12 +41,17 @@ public class MapService extends BaseService {
 		//type 4 : blocs aléatoires (très parsemé)
 		//type 5 : pas de blocs (map vide)
 		
-		int height = 20;
-		int width = 20;
-		int mapType = 5;
-		int minSomme = 1;
-		int maxSomme = 9;
-		int nbSomme = 6;
+		if(params.equals("no"))
+			params = "20-20-5-1-9-6";
+		
+		String[] nn = params.split("-");
+		
+		int height = toInt(nn[0]);
+		int width = toInt(nn[1]);
+		int mapType = toInt(nn[2]);
+		int minSomme = toInt(nn[3]);
+		int maxSomme = toInt(nn[4]);
+		int nbSomme = toInt(nn[5]);
 		
 		char[] cellsBot = new char[]{'A','B','C','D'};
 		char[] cellsSomme = UtilEngine.buildSommeCells(nbSomme,minSomme,maxSomme);	
@@ -87,6 +92,11 @@ public class MapService extends BaseService {
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void deleteMap(User currentUser, String mapId) {
 		mapDAO.deleteMap(mapId);
+	}
+	
+	
+	private int toInt(String s) {
+		return Integer.parseInt(s);
 	}
 
 }

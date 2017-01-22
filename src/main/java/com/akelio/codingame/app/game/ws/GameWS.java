@@ -37,10 +37,10 @@ public class GameWS extends BaseWS {
 	
 	
 	// curl -i -H "Authorization: token=a9163371-790e-45ef-b800-6452698ae443" -H "Content-type: application/json" -X POST http://localhost:8080/codingame/rest/v1/game -d "{\"gameId\":gameId, \"name\":name, \"mapId\":mapId, \"bot1Id\":bot1Id, \"bot2Id\":bot2Id, \"bot3Id\":bot3Id, \"bot4Id\":bot4Id}"
-	@RequestMapping(value = "/game", method = RequestMethod.GET)
-	public Game createGame() {
+	@RequestMapping(value = "/game/{params}", method = RequestMethod.GET)
+	public Game createGame(@PathVariable String params) {
 		Game game = new Game();
-		gameService.createGame(getUser(), game, null);
+		gameService.createGame(getUser(), game, params);
 		game.setName("game" + game.getGameId());
 		return game;
 	}

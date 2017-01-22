@@ -128,7 +128,7 @@ public class GameService extends BaseService {
 	}
 
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public void createGame(User currentUser, Game game, int[] params) {
+	public void createGame(User currentUser, Game game, String params) {
 		Map map = mapService.createMap(currentUser,params);
 		game.setMapId(map.getMapId());
 		gameDAO.createGame(game);

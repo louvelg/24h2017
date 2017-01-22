@@ -34,4 +34,18 @@ public class UtilBot {
 		}
 		return sommes;
 	}
+	
+	
+	public static int[] findSommeValues(int nb, int w, int h, String d) {
+		int[] values = new int[nb];
+		int k = 0;
+		for (int i = 0; i < d.length(); i++) {
+			char c = d.charAt(i);
+			if (c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9') {
+				values[k] = Integer.parseInt(""+c);
+				k++;
+			}
+		}
+		return values;
+	}
 }

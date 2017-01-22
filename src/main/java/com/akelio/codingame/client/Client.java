@@ -8,25 +8,27 @@ import com.akelio.codingame.client.json.UtilJson;
 
 public class Client {
 	
-	public static final String PATH_CREATE = "/rest/v1/game";
+	public static final String PATH_CREATE = "/rest/v1/game/{params}";
 	public static final String PATH_JOIN = "/rest/v1/user/{botId}/signin/{gameId}";
 	
 	public static final String PATH_GAME = "/rest/v1/bot/{indice}/game/{gameId}/move/{move}";
 	
 	private String host;
 	private String game;
+	private String params;
 	private Bot bot;
 	
-	public Client(String host, String game, Bot bot) {
+	public Client(String host, String game, String params, Bot bot) {
 		this.host = host;
 		this.game = game;
+		this.params = params;
 		this.bot = bot;
 	}
 
 	
 	public int createGame() throws Exception {
 		
-		URL url = new URL(host+PATH_CREATE);
+		URL url = new URL(host+PATH_CREATE.replace("{params}", params));
 		URLConnection con = (URLConnection) url.openConnection();
 		String res = Util.retrieveString(con);
 		Map data = (Map) UtilJson.parseJson(res);

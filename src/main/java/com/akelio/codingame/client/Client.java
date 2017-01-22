@@ -51,8 +51,15 @@ public class Client {
 		String res = Util.retrieveString(con);
 		Map data = (Map) UtilJson.parseJson(res);
 		
+		String status = (String) data.get("status");
 		String currentBot = (String) data.get("currentBot");
 		String gameId = (String) data.get("gameId");
+		
+		if(status.startsWith("ko :")) {
+			System.out.println();
+			System.out.println("GAME ABORTED : no enough player ....");
+			System.exit(0);
+		}
 
 		System.out.println();
 		System.out.println("GAME JOINED");
@@ -77,7 +84,7 @@ public class Client {
 			res = Util.retrieveString(con);
 			data = (Map) UtilJson.parseJson(res);
 			
-			String status = (String) data.get("status");
+			status = (String) data.get("status");
 			over = status.equals("over");
 			
 			Thread.sleep(100);

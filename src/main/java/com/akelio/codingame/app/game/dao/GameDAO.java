@@ -28,6 +28,10 @@ public class GameDAO extends BaseDAO<Game> {
 	public List<Game> findAllGame() {
 		return getList("select " + fields() + " from game order by date_created desc", new GameMapper());
 	}
+	
+	public String findLatestGameId() {
+		return getString("SELECT MAX(game_id) FROM game");
+	}
 
 	
 	public void createGame(Game game) {

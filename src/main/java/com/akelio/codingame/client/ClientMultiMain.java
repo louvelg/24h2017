@@ -42,6 +42,8 @@ public class ClientMultiMain {
 		Client client0 = new Client(host,null,params,bot1);
 		String gameId = ""+client0.createGame();
 		
+		gameId = "latest";
+		
 		Client client1 = new Client(host,gameId,params,bot1);
 		Client client2 = new Client(host,gameId,params,bot2);
 		Client client3 = new Client(host,gameId,params,bot3);

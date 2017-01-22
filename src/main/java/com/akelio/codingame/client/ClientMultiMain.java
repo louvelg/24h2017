@@ -37,7 +37,7 @@ public class ClientMultiMain {
 		Bot bot1 = BotFactory.build("2");
 		Bot bot2 = BotFactory.build("2");
 		Bot bot3 = BotFactory.build("2");
-		Bot bot4 = BotFactory.build("3");
+		Bot bot4 = BotFactory.build("eddy");
 		
 		Client client0 = new Client(host,null,params,bot1);
 		String gameId = ""+client0.createGame();

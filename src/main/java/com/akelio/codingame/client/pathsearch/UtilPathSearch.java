@@ -11,4 +11,15 @@ public class UtilPathSearch {
 		
 		return search.getPath();
 	}
+	
+	public static int[][] perform(int[] start, int[][] ends, boolean[][] maze) {
+		SearchMany search = new SearchMany();
+		search.setStart(start);
+		search.setEnds(ends);
+		search.initMaze(maze);
+		search.run();
+		
+		return search.getPath();
+	}
+
 }

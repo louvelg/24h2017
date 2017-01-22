@@ -24,6 +24,7 @@ public class Bot3 implements Bot {
 		boolean[][] maze = UtilBot.buildMaze(width,height,d);
 		
 		int[] amounts = UtilBot.findSommeValues(nbSomme, width, height, d);
+		sommes = UtilBot.findBestSommes(sommes,amounts);
 		
 		int[][] path = UtilPathSearch.perform(mePos, sommes, maze);
 		int[] nextPos = path[1];

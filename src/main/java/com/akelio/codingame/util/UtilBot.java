@@ -48,4 +48,22 @@ public class UtilBot {
 		}
 		return values;
 	}
+	
+	public static int[][] findBestSommes(int[][] sommes, int[] amount) {
+		int nb1 = sommes.length/2;
+		int[][] bestSommes = new int[nb1][2];
+		
+		int max = 0;
+		int index = -1;
+		for(int i=0;i<amount.length;i++) {
+			if(amount[i]>max) {
+				index = i;
+				max = amount[i];
+			}
+		}
+		
+		bestSommes[0] = sommes[index];
+		
+		return bestSommes;
+	}
 }

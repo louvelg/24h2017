@@ -15,14 +15,6 @@
 						<h:outputText value="Liste des parties" />
 					</h1>
 				</div>
-				<div class="content-button col-lg-2">
-					<div class="btn-group pull-right">
-						<h:link outcome="pretty:viewGameCreate" styleClass="btn btn-primary">
-							<i class="fa fa-plus m-r-xs"></i>
-							<h:outputText value="#{message.create}" />
-						</h:link>
-					</div>
-				</div>
 			</div>
 		</h:form>
 		<h:form id="FormContent">
@@ -32,7 +24,7 @@
 						<p:dataTable value="#{b.gameList}" var="var" emptyMessage="#{message.empty_message}" styleClass="std-datatable">
 							<p:column>
 								<f:facet name="header">
-									<h:outputText value="#{message.game_name}" />
+									<h:outputText value="Dernières parties" />
 								</f:facet>
 								<h:link outcome="pretty:viewGameDetails">
 									<f:param name="gameId" value="#{var.gameId}" />
@@ -40,16 +32,6 @@
 									<h:outputText value="#{var.dateCreated}">
 										<f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
 									</h:outputText>
-								</h:link>
-							</p:column>
-							<p:column width="80">
-								<h:commandLink action="#{b.deleteGame}" styleClass="btn btn-xs btn-white pull-right" onclick="if (!confirm('#{message.game_confirm_del}')) return false" update="@form" title="#{message.delete}">
-									<span class="fa fa-trash" />
-									<f:param name="gameId" value="#{var.gameId}" />
-								</h:commandLink>
-								<h:link outcome="pretty:viewGameUpdate" styleClass="btn btn-xs btn-white pull-right" title="#{message.update}">
-									<f:param name="gameId" value="#{var.gameId}" />
-									<i class="fa fa-pencil" />
 								</h:link>
 							</p:column>
 						</p:dataTable>

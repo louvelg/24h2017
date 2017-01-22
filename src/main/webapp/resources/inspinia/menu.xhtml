@@ -23,6 +23,15 @@
 					</div>
 					<div class="logo-element">Codingame+</div>
 				</li>
+				<li class="#{(selectedMenu.equals('user'))?'active':''}" id="menu-space-settings"><h:link outcome="pretty:viewUserUpdate">
+						<f:param name="userId" value="#{visit.user.userId}"/>
+						<i class="fa fa-cog"></i>
+						<span class="nav-label"><h:outputText value="Mon profil" /></span>
+					</h:link></li>
+				<li class="#{(selectedMenu.equals('game'))?'active':''}" id="menu-space-settings"><h:link outcome="pretty:viewGameList">
+						<i class="fa fa-cog"></i>
+						<span class="nav-label"><h:outputText value="Parties" /></span>
+					</h:link></li>
 			</ul>
 		</div>
 		</nav>

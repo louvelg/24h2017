@@ -26,6 +26,7 @@ public class UserService extends BaseUserService<User> {
 
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void createUser(User currentUser, User user) {
+		user.setTenantId("1");
 		userDAO.createUser(user);
 	}
 

@@ -13,9 +13,9 @@ import com.gs.collections.impl.list.mutable.FastList;
 
 @Repository
 public class UserDAO extends BaseDAO<User> {
-	private static final String	TABLE_NAME	= "user";
+	private static final String			TABLE_NAME	= "user";
 	private static final List<String>	TABLE_PKS	= Arrays.asList("user_id");
-	List<String>				fieldList	= Arrays.asList("user_id","first_name","last_name","login","password","email","date_created","date_updated","date_deleted","date_disable");
+	List<String>						fieldList	= Arrays.asList("user_id", "tenant_id", "first_name", "last_name", "login", "password", "email", "date_created", "date_updated", "date_deleted", "date_disable");
 
 	public User findUserById(String userId) {
 		return getOne("select " + fields() + " from user where user_id = ? ", new UserMapper(), userId);
@@ -25,41 +25,28 @@ public class UserDAO extends BaseDAO<User> {
 		return getList("select " + fields() + " from user ", new UserMapper());
 	}
 
-	
 	public User findUserDeletedById(String tenantId, String id) {
-		return getOne("select " + fields() + " from user where user_id=? and tenant_id=? and date_deleted is not null",
-				new UserMapper(), id, tenantId);
+		return getOne("select " + fields() + " from user where user_id=? and tenant_id=? and date_deleted is not null", new UserMapper(), id, tenantId);
 	}
 
 	public User findUserDisabledById(String tenantId, String id) {
-		return getOne("select " + fields() + " from user where user_id=? and tenant_id=? and date_disable is not null",
-				new UserMapper(), id, tenantId);
+		return getOne("select " + fields() + " from user where user_id=? and tenant_id=? and date_disable is not null", new UserMapper(), id, tenantId);
 	}
 
 	public User findUserByLogin(String login) {
-		return getOne(
-				"select " + fieldsWithPrefix("u")
-						+ " from user u where login=? and tenant_id <>0  and date_deleted is null",
-				new UserMapper(), login);
+		return getOne("select " + fieldsWithPrefix("u") + " from user u where login=? and tenant_id <>0  and date_deleted is null", new UserMapper(), login);
 	}
 
 	public User findUserNotDisableByLogin(String login) {
-		return getOne(
-				"select " + fieldsWithPrefix("u")
-						+ " from user u where login=? and tenant_id <>0  and date_deleted is null and date_disable is null",
-				new UserMapper(), login);
+		return getOne("select " + fieldsWithPrefix("u") + " from user u where login=? and tenant_id <>0  and date_deleted is null and date_disable is null", new UserMapper(), login);
 	}
 
 	public User findUserByLogin(String tenantId, String login) {
-		return getOne(
-				"select " + fieldsWithPrefix("u")
-						+ " from user u where tenant_id=? and login=?  and date_deleted is null",
-				new UserMapper(), tenantId, login);
+		return getOne("select " + fieldsWithPrefix("u") + " from user u where tenant_id=? and login=?  and date_deleted is null", new UserMapper(), tenantId, login);
 	}
 
 	public List<User> findAllUserDisable(String tenantId) {
-		return getList("select " + fields() + " from user where tenant_id=? and date_disable is not null",
-				new UserMapper(), tenantId);
+		return getList("select " + fields() + " from user where tenant_id=? and date_disable is not null", new UserMapper(), tenantId);
 	}
 
 	public void disableUser(String tenantId, String userId) {
@@ -73,10 +60,9 @@ public class UserDAO extends BaseDAO<User> {
 	}
 
 	public void updateUserPassword(String tenant, String id, String password) {
-		update("update user set password = ? where user_id = ? and tenant_id=?", password, id,
-				tenant);
+		update("update user set password = ? where user_id = ? and tenant_id=?", password, id, tenant);
 	}
-	
+
 	public void createUser(User user) {
 		save(user);
 	}
@@ -84,9 +70,9 @@ public class UserDAO extends BaseDAO<User> {
 	public void updateUser(User user) {
 		FastList<String> f = new FastList<String>(fieldList);
 		f.remove(TABLE_PKS);
-		
+
 		f.remove("date_created");
-		
+
 		String sql = "update user set " + getUpdateCustomFields(f) + " where user_id = :userId ";
 		update(sql, user);
 	}

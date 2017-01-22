@@ -32,11 +32,11 @@
 						<p:dataTable value="#{b.userList}" var="var" emptyMessage="#{message.empty_message}" styleClass="std-datatable">
 							<p:column>
 								<f:facet name="header">
-									<h:outputText value="#{message.user_name}" />
+									<h:outputText value="Nom" />
 								</f:facet>
 								<h:link outcome="pretty:viewUserDetails">
 									<f:param name="userId" value="#{var.userId}" />
-									<h:outputText value="#{var.userId}" />
+									<h:outputText value="#{var.firstName} #{var.lastName}" />
 								</h:link>
 							</p:column>
 							<p:column width="80">

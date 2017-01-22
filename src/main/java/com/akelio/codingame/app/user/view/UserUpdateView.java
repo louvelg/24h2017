@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.akelio.codingame.app.user.entity.User;
 import com.akelio.codingame.app.user.service.UserService;
 import com.akelio.codingame.base.BaseView;
+import com.akelio.codingame.jsf.Jsf;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
 
 @ViewScoped
@@ -31,7 +32,9 @@ public class UserUpdateView extends BaseView {
 
 	public String updateUser() {
 		userService.updateUser(getUser(), userTmp);
-		return "pretty:viewUserList";
+		getVisit().setUser(userTmp);
+		Jsf.info("Votre profil a été enregistré.");
+		return "";
 	}
 
 	public User getUserTmp() {

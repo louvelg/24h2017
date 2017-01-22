@@ -41,33 +41,36 @@ public class GameListView extends BaseView {
 	private void refresh() {
 		gameList = gameService.findAllGame(getUser());
 		for (Game game : gameList) {
-			StringBuffer buf = new StringBuffer();
 			List<Turn> turnList = turnService.findAllTurnForGame(game.getGameId());
-			Turn lastTurn = turnList.get(turnList.size() - 1);
-			String winner = getWinner(lastTurn);
-			Bot bot = botService.findBotById(null, game.getBot1Id());
-			buf.append(bot.getName()).append(" : ").append(lastTurn.getAmountBot1()).append(" - ");
-			if (winner.equals("A")) {
-				game.setWinnerName(bot.getName() + " : " + lastTurn.getAmountBot1());
+			game.setTurnList(turnList);
+			if (game.isOver()) {
+				StringBuffer buf = new StringBuffer();
+				Turn lastTurn = turnList.get(turnList.size() - 1);
+				String winner = getWinner(lastTurn);
+				Bot bot = botService.findBotById(null, game.getBot1Id());
+				buf.append(bot.getName()).append(" : ").append(lastTurn.getAmountBot1()).append(" - ");
+				if (winner.equals("A")) {
+					game.setWinnerName(bot.getName() + " : " + lastTurn.getAmountBot1());
+				}
+				bot = botService.findBotById(null, game.getBot2Id());
+				buf.append(bot.getName()).append(" : ").append(lastTurn.getAmountBot2()).append(" - ");
+				if (winner.equals("B")) {
+					game.setWinnerName(bot.getName() + " : " + lastTurn.getAmountBot2());
+				}
+				bot = botService.findBotById(null, game.getBot3Id());
+				buf.append(bot.getName()).append(" : ").append(lastTurn.getAmountBot3()).append(" - ");
+				if (winner.equals("C")) {
+					game.setWinnerName(bot.getName() + " : " + lastTurn.getAmountBot3());
+				}
+				bot = botService.findBotById(null, game.getBot4Id());
+				buf.append(bot.getName()).append(" : ").append(lastTurn.getAmountBot4());
+				if (winner.equals("D")) {
+					game.setWinnerName(bot.getName() + " : " + lastTurn.getAmountBot4());
+				}
+				game.setPlayerList(buf.toString());
+			} else {
+				game.setPlayerList("Partie en cours");
 			}
-			bot = botService.findBotById(null, game.getBot2Id());
-			buf.append(bot.getName()).append(" : ").append(lastTurn.getAmountBot2()).append(" - ");
-			if (winner.equals("B")) {
-				game.setWinnerName(bot.getName() + " : " + lastTurn.getAmountBot2());
-			}
-			bot = botService.findBotById(null, game.getBot3Id());
-			buf.append(bot.getName()).append(" : ").append(lastTurn.getAmountBot3()).append(" - ");
-			if (winner.equals("C")) {
-				game.setWinnerName(bot.getName() + " : " + lastTurn.getAmountBot3());
-			}
-
-			bot = botService.findBotById(null, game.getBot4Id());
-			buf.append(bot.getName()).append(" : ").append(lastTurn.getAmountBot4());
-			if (winner.equals("D")) {
-				game.setWinnerName(bot.getName() + " : " + lastTurn.getAmountBot4());
-			}
-
-			game.setPlayerList(buf.toString());
 
 		}
 	}
@@ -76,15 +79,19 @@ public class GameListView extends BaseView {
 		int max = 0;
 		String winner = "";
 		if (turn.getAmountBot1AsInt() > max) {
+			max = turn.getAmountBot1AsInt();
 			winner = "A";
 		}
 		if (turn.getAmountBot2AsInt() > max) {
+			max = turn.getAmountBot2AsInt();
 			winner = "B";
 		}
 		if (turn.getAmountBot3AsInt() > max) {
+			max = turn.getAmountBot3AsInt();
 			winner = "C";
 		}
 		if (turn.getAmountBot4AsInt() > max) {
+			max = turn.getAmountBot4AsInt();
 			winner = "D";
 		}
 		return winner;

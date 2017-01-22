@@ -43,7 +43,7 @@ public class Game extends BaseEntity {
 	}
 	
 	public boolean isOver() {
-		return turnList!=null && turnList.size()>maxTurn;
+		return turnList!=null && turnList.size() >= maxTurn;
 	}
 	
 

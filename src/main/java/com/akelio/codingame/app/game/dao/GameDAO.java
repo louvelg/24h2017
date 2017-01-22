@@ -15,7 +15,7 @@ import com.gs.collections.impl.list.mutable.FastList;
 public class GameDAO extends BaseDAO<Game> {
 	private static final String	TABLE_NAME	= "game";
 	private static final List<String>	TABLE_PKS	= Arrays.asList("game_id");
-	List<String>				fieldList	= Arrays.asList("game_id","name","map_id","bot1_id","bot2_id","bot3_id","bot4_id","date_created");
+	List<String>				fieldList	= Arrays.asList("game_id","name","map_id","bot1_id","bot2_id","bot3_id","bot4_id","date_created","max_turn");
 
 	public Game findGameById(String gameId) {
 		return getOne("select " + fields() + " from game where game_id = ? ", new GameMapper(), gameId);

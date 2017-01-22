@@ -50,22 +50,25 @@ public class Client {
 		URLConnection con = (URLConnection) url.openConnection();
 		String res = Util.retrieveString(con);
 		Map data = (Map) UtilJson.parseJson(res);
+		Map turn = (Map) data.get("lastTurn");
 		
 		String status = (String) data.get("status");
 		String currentBot = (String) data.get("currentBot");
 		String gameId = (String) data.get("gameId");
+		String maxTurn = (String) data.get("maxTurn");
+		String indexTurn = (String) turn.get("indice");
 		
-		if(status.startsWith("ko :")) {
+		boolean over = false;
+		
+		if(status!=null && status.startsWith("ko :")) {
 			System.out.println();
 			System.out.println("GAME ABORTED : no enough player ....");
-			System.exit(0);
+			return;
 		}
 
 		System.out.println();
 		System.out.println("GAME JOINED");
 		System.out.println(data);
-		
-		boolean over = false;
 		
 		while (!over) {
 			
@@ -76,14 +79,16 @@ public class Client {
 					.replace("{gameId}", gameId)
 					.replace("{move}", dir.toString());
 			
-			System.out.println("indice : " + data.get("currentBot") + " urlGame = " + urlGame_);
+			System.out.println(indexTurn+"/"+maxTurn+" : " + data.get("currentBot") + " game-url " + urlGame_);
 			
 			URL urlGame = new URL(urlGame_);
 			con = (URLConnection) urlGame.openConnection();
 			
 			res = Util.retrieveString(con);
 			data = (Map) UtilJson.parseJson(res);
+			turn = (Map) data.get("lastTurn");
 			
+			indexTurn = (String) turn.get("indice");
 			status = (String) data.get("status");
 			over = status.equals("over");
 			

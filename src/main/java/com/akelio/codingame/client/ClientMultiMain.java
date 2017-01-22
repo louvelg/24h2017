@@ -24,7 +24,7 @@ public class ClientMultiMain {
 		String host = Util.getValue(p, "host", DEFAULT_HOST);
 		String params = Util.getValue(p, "params", DEFAULT_PARAMS);
 		
-		params = "100-30-30-2-1-3-4";
+		params = "50-30-30-2-1-4-4";
 		//maxTurn-height-width-mapType-minSomme-maxSomme-nbSomme
 		
 		//type 0 : labyrithme
@@ -48,9 +48,9 @@ public class ClientMultiMain {
 		Client client4 = new Client(host,gameId,params,bot4);
 		
 		launch(client1);
-//		launch(client2);
-//		launch(client3);
-//		launch(client4);
+		launch(client2);
+		launch(client3);
+		launch(client4);
 	}
 	
 	

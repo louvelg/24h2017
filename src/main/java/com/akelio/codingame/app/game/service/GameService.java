@@ -134,6 +134,8 @@ public class GameService extends BaseService {
 		Map map = mapService.createMap(currentUser,paramsArray);
 		game.setMapId(map.getMapId());
 		gameDAO.createGame(game);
+		
+		game.setName("game" + game.getGameId());
 	}
 
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)

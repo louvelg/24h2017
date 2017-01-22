@@ -53,6 +53,11 @@ public class GameWS extends BaseWS {
 	public Game signinGame(@PathVariable String botId, @PathVariable String gameId) {
 		
 		int index = gameService.addNewBot(getUser(), gameId, botId);
+		if (index == -1) {
+			Game g = new Game();
+			g.setStatus("full");
+			return g;
+		}
 		
 		int nbRetry = 0;
 		Game game = gameService.findGameById(getUser(), gameId);

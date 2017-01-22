@@ -61,6 +61,9 @@ public class GameService extends BaseService {
 	public synchronized int addNewBot(User currentUser, String gameId, String botId) {
 		Game game = findGameById(currentUser, gameId);
 		int index = game.setNextBotId(botId);
+		if (index == -1) {
+			return -1;
+		}
 		updateGame(currentUser, game);
 		return index;
 	}

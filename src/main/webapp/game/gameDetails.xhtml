@@ -61,12 +61,12 @@
 							<div class="col-lg-12">
 								<div>
 								
-									<p:commandLink action="#{b.firstTurn}" styleClass="btn btn-primary m-r-xs" update="map progress step players">Premier</p:commandLink>
-									<p:commandLink action="#{b.previousTurn}" styleClass="btn btn-primary m-r-xs" update="map progress step players">Précédent</p:commandLink>
+									<p:commandLink onclick="stop();" action="#{b.firstTurn}" styleClass="btn btn-primary m-r-xs" update="map progress step players">Premier</p:commandLink>
+									<p:commandLink onclick="stop();" action="#{b.previousTurn}" styleClass="btn btn-primary m-r-xs" update="map progress step players">Précédent</p:commandLink>
 									<a onclick="play();" href="#" class="btn btn-primary m-r-xs">Play</a>
 									<a onclick="stop();" href="#" class="btn btn-primary m-r-xs">Stop</a>
-									<p:commandLink action="#{b.nextTurn}" styleClass="btn btn-primary m-r-xs" update="map progress step players">Suivant</p:commandLink>
-									<p:commandLink action="#{b.lastTurn}" styleClass="btn btn-primary" update="map progress step players">Dernier</p:commandLink>
+									<p:commandLink onclick="stop();"  action="#{b.nextTurn}" styleClass="btn btn-primary m-r-xs" update="map progress step players">Suivant</p:commandLink>
+									<p:commandLink onclick="stop();" action="#{b.lastTurn}" styleClass="btn btn-primary" update="map progress step players">Dernier</p:commandLink>
 								</div>
 							</div>
 						</div>

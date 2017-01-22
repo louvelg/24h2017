@@ -51,9 +51,20 @@ public class Client {
 		URLConnection con = (URLConnection) url.openConnection();
 		String res = Util.retrieveString(con);
 		Map data = (Map) UtilJson.parseJson(res);
-		Map turn = (Map) data.get("lastTurn");
 		
 		String status = (String) data.get("status");
+		if(status!=null && status.equals("timeout")) {
+			System.out.println();
+			System.out.println("GAME ABORTED : no enough player ....");
+			return;
+		}
+		
+		if(status!=null && status.equals("full")) {
+			System.out.println();
+			System.out.println("GAME ABORTED : all room are full....");
+			return;
+		}
+		Map turn = (Map) data.get("lastTurn");
 		String currentBot = (String) data.get("currentBot");
 		String gameId = (String) data.get("gameId");
 		String maxTurn = (String) data.get("maxTurn");
@@ -61,11 +72,7 @@ public class Client {
 		
 		boolean over = false;
 		
-		if(status!=null && status.equals("timeout")) {
-			System.out.println();
-			System.out.println("GAME ABORTED : no enough player ....");
-			return;
-		}
+
 
 		System.out.println();
 		System.out.println("GAME JOINED");

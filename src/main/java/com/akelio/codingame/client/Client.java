@@ -8,7 +8,7 @@ import com.akelio.codingame.client.json.UtilJson;
 
 public class Client {
 	
-	public static final String PATH_CREATE = "/rest/v1/game/{params}";
+	public static final String PATH_CREATE = "/rest/v1/newgame/{params}";
 	public static final String PATH_JOIN = "/rest/v1/user/{botId}/signin/{gameId}";
 	
 	public static final String PATH_GAME = "/rest/v1/bot/{indice}/game/{gameId}/move/{move}";

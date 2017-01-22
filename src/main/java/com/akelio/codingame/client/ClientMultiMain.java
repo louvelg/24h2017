@@ -1,6 +1,8 @@
 package com.akelio.codingame.client;
 
 import java.util.Map;
+import com.akelio.codingame.client.bots.Bot;
+import com.akelio.codingame.client.bots.BotFactory;
 
 public class ClientMultiMain {
 	
@@ -16,16 +18,22 @@ public class ClientMultiMain {
 		
 		String host = Util.getValue(params, "host", DEFAULT_HOST);
 		String mode = Util.getValue(params, "mode", DEFAULT_MODE);
-		String bot = Util.getValue(params, "bot", DEFAULT_BOT);
+		String botId = Util.getValue(params, "bot", DEFAULT_BOT);
 		String game = Util.getValue(params, "game", DEFAULT_GAME);
 		
-		Client client0 = new Client(host,bot,null);
-		int gameId = client0.createGame();
 		
-		Client client1 = new Client(host,bot,""+gameId);
-		Client client2 = new Client(host,bot,""+gameId);
-		Client client3 = new Client(host,bot,""+gameId);
-		Client client4 = new Client(host,bot,""+gameId);
+		Bot bot1 = BotFactory.build("1");
+		Bot bot2 = BotFactory.build("1");
+		Bot bot3 = BotFactory.build("2");
+		Bot bot4 = BotFactory.build("2");
+		
+		Client client0 = new Client(host,null,bot1);
+		String gameId = ""+client0.createGame();
+		
+		Client client1 = new Client(host,gameId,bot1);
+		Client client2 = new Client(host,gameId,bot2);
+		Client client3 = new Client(host,gameId,bot3);
+		Client client4 = new Client(host,gameId,bot4);
 		
 		launch(client1);
 		launch(client2);

@@ -28,57 +28,66 @@ public class UtilEngine {
 		
 		int taken = 0;
 		
-		String directionA = moves[0].getDirection();
-		int posA = data.indexOf("A");
-		int newPosA = computeNewPos(w,h,posA,directionA);
-		if(newPosA!=-1) {
-			char cell = data.charAt(newPosA);
-			int gain = getGain(cell);
-			if(gain!=-1) {moneyA += gain;taken++;}
-			if(cell==' ' || gain!=-1) {
-				putCharAt(data,posA,' ');
-				putCharAt(data,newPosA,'A');
+		String directionA = getDirection(moves[0]);
+		if(!directionA.equals("I")) {
+			int posA = data.indexOf("A");
+			int newPosA = computeNewPos(w,h,posA,directionA);
+			if(newPosA!=-1) {
+				char cell = data.charAt(newPosA);
+				int gain = getGain(cell);
+				if(gain!=-1) {moneyA += gain;taken++;}
+				if(cell==' ' || gain!=-1) {
+					putCharAt(data,posA,' ');
+					putCharAt(data,newPosA,'A');
+				}
 			}
 		}
 		
-		String directionB = moves[1].getDirection();
-		int posB = data.indexOf("B");
-		int newPosB = computeNewPos(w,h,posB,directionB);
-		if(newPosB!=-1) {
-			char cell = data.charAt(newPosB);
-			int gain = getGain(cell);
-			if(gain!=-1) {moneyB += gain;taken++;}
-			if(cell==' ' || gain!=-1) {
-				putCharAt(data,posB,' ');
-				putCharAt(data,newPosB,'B');
+		String directionB = getDirection(moves[1]);
+		if(!directionB.equals("I")) {
+			int posB = data.indexOf("B");
+			int newPosB = computeNewPos(w,h,posB,directionB);
+			if(newPosB!=-1) {
+				char cell = data.charAt(newPosB);
+				int gain = getGain(cell);
+				if(gain!=-1) {moneyB += gain;taken++;}
+				if(cell==' ' || gain!=-1) {
+					putCharAt(data,posB,' ');
+					putCharAt(data,newPosB,'B');
+				}
 			}
 		}
 		
-		String directionC = moves[2].getDirection();
-		int posC = data.indexOf("C");
-		int newPosC = computeNewPos(w,h,posC,directionC);
-		if(newPosC!=-1) {
-			char cell = data.charAt(newPosC);
-			int gain = getGain(cell);
-			if(gain!=-1) {moneyC += gain;taken++;}
-			if(cell==' ' || gain!=-1) {
-				putCharAt(data,posC,' ');
-				putCharAt(data,newPosC,'C');
+		String directionC = getDirection(moves[2]);
+		if(!directionC.equals("I")) {
+			int posC = data.indexOf("C");
+			int newPosC = computeNewPos(w,h,posC,directionC);
+			if(newPosC!=-1) {
+				char cell = data.charAt(newPosC);
+				int gain = getGain(cell);
+				if(gain!=-1) {moneyC += gain;taken++;}
+				if(cell==' ' || gain!=-1) {
+					putCharAt(data,posC,' ');
+					putCharAt(data,newPosC,'C');
+				}
 			}
 		}
 		
-		String directionD = moves[3].getDirection();
-		int posD = data.indexOf("D");
-		int newPosD = computeNewPos(w,h,posD,directionD);
-		if(newPosD!=-1) {
-			char cell = data.charAt(newPosD);
-			int gain = getGain(cell);
-			if(gain!=-1) {moneyD += gain;taken++;}
-			if(cell==' ' || gain!=-1) {
-				putCharAt(data,posD,' ');
-				putCharAt(data,newPosD,'D');
+		String directionD = getDirection(moves[3]);
+		if(!directionD.equals("I")) {
+			int posD = data.indexOf("D");
+			int newPosD = computeNewPos(w,h,posD,directionD);
+			if(newPosD!=-1) {
+				char cell = data.charAt(newPosD);
+				int gain = getGain(cell);
+				if(gain!=-1) {moneyD += gain;taken++;}
+				if(cell==' ' || gain!=-1) {
+					putCharAt(data,posD,' ');
+					putCharAt(data,newPosD,'D');
+				}
 			}
 		}
+		
 		
 		char[] newTargets = new char[taken];
 		for(int i=0;i<taken;i++) {
@@ -110,6 +119,12 @@ public class UtilEngine {
 	}
 	
 	
+	private static String getDirection(Move move) {
+		if(move==null) return "I";
+		return move.getDirection();
+	}
+	
+	
 	private static int getGain(char cell) {
 		if(cell=='1') return 1;
 		if(cell=='2') return 2;
@@ -125,6 +140,9 @@ public class UtilEngine {
 	
 	
 	private static int computeNewPos(int w, int h, int pos, String direction) {
+		
+		if(direction.equals("")) return pos;
+		
 		int[] pos2 = convert1Dto2D(w,h,pos);
 		if(direction.equals("N")) pos2[0]--;
 		if(direction.equals("S")) pos2[0]++;

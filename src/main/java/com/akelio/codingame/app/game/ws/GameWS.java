@@ -99,9 +99,11 @@ public class GameWS extends BaseWS {
 	@ResponseStatus(value = HttpStatus.OK)
 	public Game move(@PathVariable String indice,@PathVariable String gameId, @PathVariable String move) {
 		Game game = gameService.nextTurn(gameId, indice, move);
+		game.setCurrentBot(indice);
 		return game;
 	}
 
+	
 	// curl -i -H "Authorization: token=a9163371-790e-45ef-b800-6452698ae443" -X DELETE http://localhost:8080/codingame/rest/v1/game/22
 	@RequestMapping(value = "/game/{gameId}", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK)

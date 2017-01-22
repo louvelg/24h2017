@@ -97,6 +97,11 @@ public class GameService extends BaseService {
 		if (created) {
 			game.getTurnList().add(nextTurn);
 			turnService.printTurn(nextTurn);
+			
+			if(game.isOver()) {
+				game.setStatus("over");
+				updateGame(null, game);
+			}
 			return game;
 		}
 		

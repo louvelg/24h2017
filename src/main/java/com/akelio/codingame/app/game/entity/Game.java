@@ -12,6 +12,8 @@ import com.akelio.codingame.app.turn.entity.Turn;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Game extends BaseEntity {
+	
+	public static final int MAX_TURN = 50;
 
 	private String		gameId;
 	private String		name;
@@ -39,6 +41,11 @@ public class Game extends BaseEntity {
 
 		return false;
 	}
+	
+	public boolean isOver() {
+		return turnList!=null && turnList.size()>MAX_TURN;
+	}
+	
 
 	public int setNextBotId(String botId) {
 		if (bot1Id == null) {

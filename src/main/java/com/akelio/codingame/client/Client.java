@@ -3,6 +3,7 @@ package com.akelio.codingame.client;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Map;
+import com.akelio.codingame.client.bots.Bot;
 import com.akelio.codingame.client.json.UtilJson;
 
 public class Client {
@@ -13,13 +14,13 @@ public class Client {
 	public static final String PATH_GAME = "/rest/v1/bot/{indice}/game/{gameId}/move/{move}";
 	
 	private String host;
-	private String bot;
 	private String game;
+	private Bot bot;
 	
-	public Client(String host, String bot, String game) {
+	public Client(String host, String game, Bot bot) {
 		this.host = host;
-		this.bot = bot;
 		this.game = game;
+		this.bot = bot;
 	}
 
 	
@@ -41,40 +42,48 @@ public class Client {
 	
 	public void joinGame() throws Exception {
 		
-		String url_ = host+PATH_JOIN.replace("{botId}",bot).replace("{gameId}",game);
+		String url_ = host+PATH_JOIN.replace("{botId}",bot.getId()).replace("{gameId}",game);
 		URL url = new URL(url_);
 		
 		URLConnection con = (URLConnection) url.openConnection();
 		String res = Util.retrieveString(con);
 		Map data = (Map) UtilJson.parseJson(res);
+		
+		String currentBot = (String) data.get("currentBot");
+		String gameId = (String) data.get("gameId");
 
 		System.out.println();
 		System.out.println("GAME JOINED");
 		System.out.println(data);
 		
-		for (int i = 0; i < 10; i++) {
+		boolean over = false;
+		
+		while (!over) {
+			
+			Bot.DIR dir = bot.computeDirection(data);
+			
 			String urlGame_ = host+PATH_GAME
-					.replace("{indice}", (String) data.get("currentBot"))
-					.replace("{gameId}", (String) data.get("gameId"))
-					.replace("{move}", (String) getCoordinate());
-			System.out.println("indice : " + (String) data.get("currentBot") + " urlGame = " + urlGame_);
+					.replace("{indice}", currentBot)
+					.replace("{gameId}", gameId)
+					.replace("{move}", dir.toString());
+			
+			System.out.println("indice : " + data.get("currentBot") + " urlGame = " + urlGame_);
 			
 			URL urlGame = new URL(urlGame_);
-			URLConnection conGame = (URLConnection) urlGame.openConnection();
-			Util.retrieveString(conGame);
+			con = (URLConnection) urlGame.openConnection();
+			
+			res = Util.retrieveString(con);
+			data = (Map) UtilJson.parseJson(res);
+			
+			String status = (String) data.get("status");
+			over = status.equals("over");
+			
 			Thread.sleep(100);
 		}
 	}
 
 
-	private String getCoordinate() {
-		int i = (int) ((Math.random())*3);
-		if ( i == 0 ) return "N";
-		if ( i == 1 ) return "E";
-		if ( i == 2 ) return "W";
-		if ( i == 3 ) return "S";
-		return "";
-	}
+	
 	
 	private int toInt(String s) {
 		return Integer.parseInt(s);

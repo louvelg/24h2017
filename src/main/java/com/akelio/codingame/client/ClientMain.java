@@ -1,6 +1,8 @@
 package com.akelio.codingame.client;
 
 import java.util.Map;
+import com.akelio.codingame.client.bots.Bot;
+import com.akelio.codingame.client.bots.BotFactory;
 
 public class ClientMain {
 	
@@ -20,10 +22,11 @@ public class ClientMain {
 		
 		String host = Util.getValue(params, "host", DEFAULT_HOST);
 		String mode = Util.getValue(params, "mode", DEFAULT_MODE);
-		String bot = Util.getValue(params, "bot", DEFAULT_BOT);
+		String botId = Util.getValue(params, "bot", DEFAULT_BOT);
 		String game = Util.getValue(params, "game", DEFAULT_GAME);
 		
-		Client client = new Client(host,bot,game);
+		Bot bot = BotFactory.build(botId);
+		Client client = new Client(host,game,bot);
 		
 		if(mode.equals(MODE_CREATE))
 			client.createGame();

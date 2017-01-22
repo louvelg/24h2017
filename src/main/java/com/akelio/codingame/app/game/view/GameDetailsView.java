@@ -3,7 +3,9 @@ package com.akelio.codingame.app.game.view;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -49,12 +51,13 @@ public class GameDetailsView extends BaseView {
 	private String					bot3Name;
 	private String					bot4Name;
 
-	private String					winner;
-	private String					winnerFinal;
+	private Set<String>				winners;
+	private Set<String>				winnersFinal;
 
 	@PostConstruct
 	public void init() {
 		initBean();
+		winners = new HashSet<>();
 		game = gameService.findGameById(getUser(), getParam("gameId"));
 
 		lastIndice = game.getTurnList().size();
@@ -92,7 +95,7 @@ public class GameDetailsView extends BaseView {
 		amount4 = currentTurn.getAmountBot4AsInt();
 		updateWinner();
 		if (!hasNext) {
-			winnerFinal = winner;
+			winnersFinal = winners;
 		}
 		String line = null;
 		List<String> l1 = new ArrayList<>();
@@ -110,22 +113,37 @@ public class GameDetailsView extends BaseView {
 
 	private void updateWinner() {
 		int max = 0;
-		winner = "";
+		
 		if (amount1 > max) {
+			winners = new HashSet<>();
+		}
+		if (amount1 >= max) {
+			winners.add("A");
 			max = amount1;
-			winner = "A";
 		}
+		
 		if (amount2 > max) {
+			winners = new HashSet<>();
+		}
+		if (amount2 >= max) {
+			winners.add("B");
 			max = amount2;
-			winner = "B";
 		}
+		
 		if (amount3 > max) {
-			max = amount3;
-			winner = "C";
+			winners = new HashSet<>();
 		}
+		if (amount3 >= max) {
+			winners.add("C");
+			max = amount3;
+		}
+		
 		if (amount4 > max) {
+			winners = new HashSet<>();
+		}
+		if (amount4 >= max) {
+			winners.add("D");
 			max = amount4;
-			winner = "D";
 		}
 
 	}
@@ -263,21 +281,17 @@ public class GameDetailsView extends BaseView {
 		this.amount4 = amount4;
 	}
 
-	public String getWinner() {
-		return winner;
+	public Set<String> getWinners() {
+		return winners;
 	}
 
-	public void setWinner(String winner) {
-		this.winner = winner;
+	
+
+	public Set<String> getWinnersFinal() {
+		return winnersFinal;
 	}
 
-	public String getWinnerFinal() {
-		return winnerFinal;
-	}
-
-	public void setWinnerFinal(String winnerFinal) {
-		this.winnerFinal = winnerFinal;
-	}
+	
 
 	public String getBot1Name() {
 		return bot1Name;

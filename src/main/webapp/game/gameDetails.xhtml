@@ -60,13 +60,29 @@
 						<div class="row">
 							<div class="col-lg-12">
 								<div>
-									<p:commandLink action="#{b.previousTurn}" styleClass="btn btn-primary m-r-xs" update="map progress step">Précédent</p:commandLink>
+									<p:commandLink action="#{b.previousTurn}" styleClass="btn btn-primary m-r-xs" update="map progress step players">Précédent</p:commandLink>
 									<a onclick="play();" href="#" class="btn btn-primary m-r-xs">Play</a>
 									<a onclick="stop();" href="#" class="btn btn-primary m-r-xs">Stop</a>
-									<p:commandLink action="#{b.nextTurn}" styleClass="btn btn-primary" update="map progress step">Suivant</p:commandLink>
+									<p:commandLink action="#{b.nextTurn}" styleClass="btn btn-primary" update="map progress step players">Suivant</p:commandLink>
 								</div>
 							</div>
 						</div>
+						
+						<p:outputPanel styleClass="row" id="players">
+							<div class="col-lg-12 m-t-md">
+								<div>
+									<img src="#{facesContext.externalContext.requestContextPath}/resources/images/sprite_big_A.png" />
+									<h:outputText value="#{b.amount1}" styleClass="btn #{b.winner == 'A'?'btn-success':'btn-white'} m-r-xs m-l-xs"></h:outputText>
+									<img src="#{facesContext.externalContext.requestContextPath}/resources/images/sprite_big_B.png" />
+									<h:outputText value="#{b.amount2}" styleClass="btn #{b.winner == 'B'?'btn-success':'btn-white'} m-r-xs m-l-xs" />
+									<img src="#{facesContext.externalContext.requestContextPath}/resources/images/sprite_big_C.png" />
+									<h:outputText value="#{b.amount3}" styleClass="btn #{b.winner == 'C'?'btn-success':'btn-white'} m-r-xs m-l-xs" />
+									<img src="#{facesContext.externalContext.requestContextPath}/resources/images/sprite_big_D.png" />
+									<h:outputText value="#{b.amount4}" styleClass="btn #{b.winner == 'D'?'btn-success':'btn-white'} m-r-xs m-l-xs" />
+								</div>
+								
+							</div>
+						</p:outputPanel>
 						<div class="row">
 							<div class="col-lg-12 m-t-md">
 								<div>

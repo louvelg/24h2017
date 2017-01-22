@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.akelio.codingame.app.game.entity.Game;
 import com.akelio.codingame.app.game.service.GameService;
 import com.akelio.codingame.app.map.entity.Map;
+import com.akelio.codingame.app.turn.entity.Turn;
 import com.akelio.codingame.base.BaseView;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
 
@@ -34,6 +35,13 @@ public class GameDetailsView extends BaseView {
 	private int						lastIndice;
 	private String					percent;
 
+	private int						amount1;
+	private int						amount2;
+	private int						amount3;
+	private int						amount4;
+
+	private String					winner;
+
 	@PostConstruct
 	public void init() {
 		initBean();
@@ -54,7 +62,13 @@ public class GameDetailsView extends BaseView {
 		hasNext = game.getTurnList().size() > turnIndice;
 		hasPrevious = (turnIndice > 1);
 
-		data = game.getTurnList().get(turnIndice - 1).getData();
+		Turn currentTurn = game.getTurnList().get(turnIndice - 1);
+		data = currentTurn.getData();
+		amount1 = currentTurn.getAmountBot1AsInt();
+		amount2 = currentTurn.getAmountBot2AsInt();
+		amount3 = currentTurn.getAmountBot3AsInt();
+		amount4 = currentTurn.getAmountBot4AsInt();
+		updateWinner();
 		String line = null;
 		List<String> l1 = new ArrayList<>();
 		list = new ArrayList<>();
@@ -67,6 +81,28 @@ public class GameDetailsView extends BaseView {
 			System.out.println(line);
 			list.add(l1);
 		}
+	}
+
+	private void updateWinner() {
+		int max = 0;
+		winner = "";
+		if (amount1 > max) {
+			max = amount2;
+			winner = "A";
+		}
+		if (amount2 > max) {
+			max = amount2;
+			winner = "B";
+		}
+		if (amount3 > max) {
+			max = amount3;
+			winner = "C";
+		}
+		if (amount4 > max) {
+			max = amount4;
+			winner = "D";
+		}
+
 	}
 
 	public String nextTurn() {
@@ -154,6 +190,46 @@ public class GameDetailsView extends BaseView {
 
 	public void setPercent(String percent) {
 		this.percent = percent;
+	}
+
+	public int getAmount1() {
+		return amount1;
+	}
+
+	public void setAmount1(int amount1) {
+		this.amount1 = amount1;
+	}
+
+	public int getAmount2() {
+		return amount2;
+	}
+
+	public void setAmount2(int amount2) {
+		this.amount2 = amount2;
+	}
+
+	public int getAmount3() {
+		return amount3;
+	}
+
+	public void setAmount3(int amount3) {
+		this.amount3 = amount3;
+	}
+
+	public int getAmount4() {
+		return amount4;
+	}
+
+	public void setAmount4(int amount4) {
+		this.amount4 = amount4;
+	}
+
+	public String getWinner() {
+		return winner;
+	}
+
+	public void setWinner(String winner) {
+		this.winner = winner;
 	}
 
 	public Logger getLogger() {

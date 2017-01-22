@@ -89,12 +89,7 @@ public class UtilEngine {
 		}
 		
 		
-		char[] newTargets = new char[taken];
-		for(int i=0;i<taken;i++) {
-			int newSomme = UtilRandom.random(minSomme,maxSomme);
-			newTargets[i] = (""+newSomme).charAt(0);
-		}
-		
+		char[] newTargets = buildSommeCells(taken,minSomme,maxSomme);
 		String data1 = UtilCell.addCells(data.toString(),newTargets);
 		
 		Turn turn = new Turn();
@@ -111,6 +106,18 @@ public class UtilEngine {
 		
 		return turn;
 	}
+	
+	
+	public static char[] buildSommeCells(int nb, int min, int max) {
+		char[] cells = new char[nb];
+		
+		for(int i=0;i<nb;i++){
+			int newSomme = UtilRandom.random(min,max);
+			cells[i] = (""+newSomme).charAt(0);
+		}
+		return cells;
+	}
+	
 	
 	
 	private static void putCharAt(StringBuffer b, int pos, char val) {

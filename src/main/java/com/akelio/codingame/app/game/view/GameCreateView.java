@@ -31,7 +31,7 @@ public class GameCreateView extends BaseView {
 
 	public String createGame() {
 		
-		gameService.createGame(getUser(), game);
+		gameService.createGame(getUser(), game, null);
 		return "pretty:viewGameList";
 	}
 

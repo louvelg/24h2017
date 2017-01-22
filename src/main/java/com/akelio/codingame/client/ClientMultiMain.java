@@ -22,10 +22,10 @@ public class ClientMultiMain {
 		String game = Util.getValue(params, "game", DEFAULT_GAME);
 		
 		
-		Bot bot1 = BotFactory.build("1");
-		Bot bot2 = BotFactory.build("1");
+		Bot bot1 = BotFactory.build("2");
+		Bot bot2 = BotFactory.build("2");
 		Bot bot3 = BotFactory.build("2");
-		Bot bot4 = BotFactory.build("2");
+		Bot bot4 = BotFactory.build("3");
 		
 		Client client0 = new Client(host,null,bot1);
 		String gameId = ""+client0.createGame();

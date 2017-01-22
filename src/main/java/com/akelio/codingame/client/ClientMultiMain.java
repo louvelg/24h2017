@@ -24,7 +24,7 @@ public class ClientMultiMain {
 		String host = Util.getValue(p, "host", DEFAULT_HOST);
 		String params = Util.getValue(p, "params", DEFAULT_PARAMS);
 		
-		params = "60-40-40-5-1-9-3";
+		params = "120-20-20-3-1-1-8";
 		//maxTurn-height-width-mapType-minSomme-maxSomme-nbSomme
 		
 		//type 0 : labyrithme

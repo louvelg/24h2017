@@ -1,5 +1,6 @@
 package com.akelio.codingame.client;
 
+import java.awt.Toolkit;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Map;
@@ -72,30 +73,36 @@ public class Client {
 		
 		while (!over) {
 			
-			Bot.DIR dir = bot.computeDirection(data);
-			
-			String urlGame_ = host+PATH_GAME
-					.replace("{indice}", currentBot)
-					.replace("{gameId}", gameId)
-					.replace("{move}", dir.toString());
-			
-			System.out.println(indexTurn+"/"+maxTurn+" : " + data.get("currentBot") + " game-url " + urlGame_);
-			
-			URL urlGame = new URL(urlGame_);
-			con = (URLConnection) urlGame.openConnection();
-			
-			res = Util.retrieveString(con);
-			data = (Map) UtilJson.parseJson(res);
-			turn = (Map) data.get("lastTurn");
-			
-			indexTurn = (String) turn.get("indice");
-			status = (String) data.get("status");
-			over = status.equals("over");
-			
-			Thread.sleep(100);
+			try {
+				Bot.DIR dir = bot.computeDirection(data);
+				
+				String urlGame_ = host+PATH_GAME
+						.replace("{indice}", currentBot)
+						.replace("{gameId}", gameId)
+						.replace("{move}", dir.toString());
+				
+				System.out.println(indexTurn+"/"+maxTurn+" : " + data.get("currentBot") + " game-url " + urlGame_);
+				
+				URL urlGame = new URL(urlGame_);
+				con = (URLConnection) urlGame.openConnection();
+				
+				res = Util.retrieveString(con);
+				data = (Map) UtilJson.parseJson(res);
+				turn = (Map) data.get("lastTurn");
+				
+				indexTurn = (String) turn.get("indice");
+				status = (String) data.get("status");
+				over = status.equals("over");
+				
+				Thread.sleep(100);
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 
 		System.out.println("Game status: "+status);
+		Toolkit.getDefaultToolkit().beep();
 	}
 
 

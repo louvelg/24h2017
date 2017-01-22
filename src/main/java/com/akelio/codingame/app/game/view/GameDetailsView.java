@@ -41,6 +41,7 @@ public class GameDetailsView extends BaseView {
 	private int						amount4;
 
 	private String					winner;
+	private String					winnerFinal;
 
 	@PostConstruct
 	public void init() {
@@ -61,7 +62,6 @@ public class GameDetailsView extends BaseView {
 
 		hasNext = game.getTurnList().size() > turnIndice;
 		hasPrevious = (turnIndice > 1);
-
 		Turn currentTurn = game.getTurnList().get(turnIndice - 1);
 		data = currentTurn.getData();
 		amount1 = currentTurn.getAmountBot1AsInt();
@@ -69,6 +69,9 @@ public class GameDetailsView extends BaseView {
 		amount3 = currentTurn.getAmountBot3AsInt();
 		amount4 = currentTurn.getAmountBot4AsInt();
 		updateWinner();
+		if (!hasNext) {
+			winnerFinal = winner;
+		}
 		String line = null;
 		List<String> l1 = new ArrayList<>();
 		list = new ArrayList<>();
@@ -87,7 +90,7 @@ public class GameDetailsView extends BaseView {
 		int max = 0;
 		winner = "";
 		if (amount1 > max) {
-			max = amount2;
+			max = amount1;
 			winner = "A";
 		}
 		if (amount2 > max) {
@@ -106,9 +109,23 @@ public class GameDetailsView extends BaseView {
 	}
 
 	public String nextTurn() {
+		game = gameService.findGameById(getUser(), getParam("gameId"));
 		if (turnIndice < game.getTurnList().size()) {
 			turnIndice++;
 		}
+		refreshListData();
+		return "";
+	}
+
+	public String lastTurn() {
+		game = gameService.findGameById(getUser(), getParam("gameId"));
+		turnIndice = game.getTurnList().size();
+		refreshListData();
+		return "";
+	}
+	
+	public String firstTurn() {
+		turnIndice = 1;
 		refreshListData();
 		return "";
 	}
@@ -230,6 +247,14 @@ public class GameDetailsView extends BaseView {
 
 	public void setWinner(String winner) {
 		this.winner = winner;
+	}
+
+	public String getWinnerFinal() {
+		return winnerFinal;
+	}
+
+	public void setWinnerFinal(String winnerFinal) {
+		this.winnerFinal = winnerFinal;
 	}
 
 	public Logger getLogger() {

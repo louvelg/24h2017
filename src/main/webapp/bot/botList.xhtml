@@ -30,11 +30,20 @@
 				<div class="ibox">
 					<div class="ibox-content">
 						<p:dataTable value="#{b.botList}" var="var" emptyMessage="#{message.empty_message}" styleClass="std-datatable">
+							<p:column width="50">
+								<f:facet name="header">
+									<h:outputText value="ID" />
+								</f:facet>
+								<h:link outcome="pretty:viewBotUpdate">
+									<f:param name="botId" value="#{var.botId}" />
+									<h:outputText value="#{var.botId}" />
+								</h:link>
+							</p:column>
 							<p:column>
 								<f:facet name="header">
 									<h:outputText value="Nom du bot" />
 								</f:facet>
-								<h:link outcome="pretty:viewBotDetails">
+								<h:link outcome="pretty:viewBotUpdate">
 									<f:param name="botId" value="#{var.botId}" />
 									<h:outputText value="#{var.name}" />
 								</h:link>

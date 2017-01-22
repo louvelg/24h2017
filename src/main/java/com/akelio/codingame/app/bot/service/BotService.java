@@ -24,6 +24,10 @@ public class BotService extends BaseService {
 	public List<Bot> findAllBot(User currentUser) {
 		return botDAO.findAllBot();
 	}
+	
+	public List<Bot> findAllMyBot(User currentUser) {
+		return botDAO.findAllMyBot(currentUser.getUserId());
+	}
 
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void createBot(User currentUser, Bot bot) {

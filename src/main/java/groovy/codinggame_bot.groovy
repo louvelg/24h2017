@@ -11,7 +11,23 @@ def client = new groovyx.net.http.HTTPBuilder("http://localhost:8080/codingame/r
 client.setHeaders(Accept: 'application/json')
 def json = client.get(contentType: TEXT)
 def slurper = new groovy.json.JsonSlurper().parse(json)
-//println slurper
+println "STATUS : $slurper.status"
+if (slurper.status == 'full') {
+	println "ROOMS ARE FULL"
+	println "CREATE NEW GAME"
+	client = new groovyx.net.http.HTTPBuilder("http://localhost:8080/codingame/rest/v1/newgame/100-20-20-5-1-9-6")
+	client.setHeaders(Accept: 'application/json')
+	json = client.get(contentType: TEXT)
+	slurper = new groovy.json.JsonSlurper().parse(json)
+	
+	println "SIGNIN TO GAME : $slurper.gameId" 
+	client = new groovyx.net.http.HTTPBuilder("http://localhost:8080/codingame/rest/v1/user/$botId/signin/$slurper.gameId")
+	client.setHeaders(Accept: 'application/json')
+	json = client.get(contentType: TEXT)
+	slurper = new groovy.json.JsonSlurper().parse(json)
+	
+}
+	
 def currentBot = slurper.currentBot
 def gameId = slurper.gameId
 //println "Bot lettre = " + slurper.currentBot

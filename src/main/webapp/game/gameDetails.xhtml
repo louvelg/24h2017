@@ -9,7 +9,7 @@
 	<ui:param name="b" value="#{gameDetailsView}" />
 	<ui:define name="content">
 		<h:form id="FormContent">
-			<p:remoteCommand name="refreshNext" action="#{b.nextTurn}" update=":FormContent" process="@this" />
+			<p:remoteCommand name="refreshNext" action="#{b.nextTurn}" update="map progress step players" process="@this" />
 			<div class="wrapper wrapper-content">
 				<div class="ibox">
 					<div class="ibox-content  text-center">

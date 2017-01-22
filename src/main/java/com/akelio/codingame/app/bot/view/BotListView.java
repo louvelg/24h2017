@@ -31,7 +31,7 @@ public class BotListView extends BaseView {
 	}
 
 	private void refresh() {
-		botList = botService.findAllBot(getUser());
+		botList = botService.findAllMyBot(getUser());
 	}
 	
 	public String deleteBot() {

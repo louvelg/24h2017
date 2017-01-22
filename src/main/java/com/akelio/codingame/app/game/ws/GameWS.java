@@ -40,7 +40,7 @@ public class GameWS extends BaseWS {
 	@RequestMapping(value = "/game", method = RequestMethod.GET)
 	public Game createGame() {
 		Game game = new Game();
-		gameService.createGame(getUser(), game);
+		gameService.createGame(getUser(), game, null);
 		game.setName("game" + game.getGameId());
 		return game;
 	}

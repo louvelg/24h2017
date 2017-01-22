@@ -7,20 +7,24 @@ public class UtilMaze {
 	
 	public static final double MUTATION = 0.05;
 	
-	
-	
 	public static String buildMaze(int w, int h) {
-		int r = UtilRandom.random(4);
 		
-		r = 3;
+		int r = UtilRandom.random(6);
+		return buildMaze(w,h,r);
+	}
+	
+	public static String buildMaze(int w, int h, int r) {
+		
 		switch(r) {
 			case 0:return buildMaze1(w,h);
-			case 1:return buildMaze2(w,h,8);
+			case 1:return buildMaze2(w,h,3);
 			case 2:return buildMaze2(w,h,5);
-			case 3:return buildMaze2(w,h,3);
+			case 3:return buildMaze2(w,h,8);
+			case 4:return buildMaze2(w,h,15);
+			case 5:return buildMaze3(w,h); 
 		}
 		
-		return buildMaze2(w,h,8);
+		return buildMaze3(w,h);
 	}
 	
 	
@@ -47,6 +51,19 @@ public class UtilMaze {
 		for (int i=0;i<len;i++) {
 			boolean isWall = UtilRandom.chance(rate);
 			char cell = UtilCell.buildCell(!isWall);
+			b.append(cell);
+		}
+
+		return b.toString();
+	}
+	
+	public static String buildMaze3(int w, int h) {
+		System.out.println("building maze type 3 (empty)");
+		
+		StringBuffer b = new StringBuffer();
+		int len = w*h;
+		for (int i=0;i<len;i++) {
+			char cell = UtilCell.buildCell(true);
 			b.append(cell);
 		}
 

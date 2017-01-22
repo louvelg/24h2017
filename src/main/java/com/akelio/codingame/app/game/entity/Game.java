@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Game extends BaseEntity {
 	
-	public static final int MAX_TURN = 50;
+	public static final int MAX_TURN = 100;
 
 	private String		gameId;
 	private String		name;

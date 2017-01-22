@@ -10,6 +10,7 @@ import com.akelio.codingame.app.map.dao.MapDAO;
 import com.akelio.codingame.app.map.entity.Map;
 import com.akelio.codingame.app.user.entity.User;
 import com.akelio.codingame.util.UtilCell;
+import com.akelio.codingame.util.UtilEngine;
 import com.akelio.codingame.util.UtilMaze;
 import com.akelio.codingame.util.UtilRandom;
 
@@ -31,17 +32,26 @@ public class MapService extends BaseService {
 
 	
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public Map createMap(User currentUser) {
+	public Map createMap(User currentUser, int[] params) {
 		
-		char[] cellsSomme = new char[]{'1','2','3','4','5','6'};
+		//type 0 : labyrithme
+		//type 1 : blocs aléatoires (dense)
+		//type 2 : blocs aléatoires (moyen)
+		//type 3 : blocs aléatoires (parsemé)
+		//type 4 : blocs aléatoires (très parsemé)
+		//type 5 : pas de blocs (map vide)
+		
+		int height = 20;
+		int width = 20;
+		int mapType = 5;
+		int minSomme = 1;
+		int maxSomme = 9;
+		int nbSomme = 6;
+		
 		char[] cellsBot = new char[]{'A','B','C','D'};
-		
-		int height = 30;
-		int width = 30;
-		
-		int minSomme = 5;
-		int maxSomme = 20;
+		char[] cellsSomme = UtilEngine.buildSommeCells(nbSomme,minSomme,maxSomme);	
 		String mapName = "Map-"+UtilRandom.random(1000);
+		
 		
 		Map map = new Map();
 		
@@ -49,10 +59,10 @@ public class MapService extends BaseService {
 		map.setWidth(""+width);
 		map.setMinSomme(""+minSomme);
 		map.setMaxSomme(""+maxSomme);
-		map.setNbSomme(""+cellsSomme.length);
+		map.setNbSomme(""+nbSomme);
 		map.setName(mapName);
 		
-		String data = UtilMaze.buildMaze(height,width);
+		String data = UtilMaze.buildMaze(height,width,mapType);
 		data = UtilCell.addCells(data,cellsBot);
 		data = UtilCell.addCells(data,cellsSomme);
 		

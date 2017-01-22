@@ -5,7 +5,7 @@ import com.akelio.codingame.client.pathsearch.UtilPathSearch;
 import com.akelio.codingame.util.UtilBot;
 import com.akelio.codingame.util.UtilEngine;
 
-public class Bot2 implements Bot {
+public class Bot3 implements Bot {
 
 	public DIR computeDirection(Map data) {
 		Map turn = (Map) data.get("lastTurn");

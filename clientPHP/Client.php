@@ -10,7 +10,6 @@
     const PATH_JOIN = "/rest/v1/user/{botId}/signin/{gameId}";
     const PATH_GAME = "/rest/v1/bot/{indice}/game/{gameId}/move/{move}";
 
-
     $clientJoin = new \GuzzleHttp\Client();
     $responseJoin = $clientJoin->get(DEFAULT_HOST . "/rest/v1/user/4/signin/latest");
     $jsonJoin = json_decode($responseJoin->getBody(), true);
@@ -18,7 +17,6 @@
     $currentBot = $jsonJoin['currentBot'];
 
     $co = null;
-
 
     $status = null;
     $over = null;
@@ -34,6 +32,6 @@
         $responseMove = $clientMove->get($url);
         $jsonMove = json_decode($responseMove->getBody(), true);
         $status = $jsonMove['status'];
-        
+
         var_dump("Tour : " . $jsonMove['lastTurn']['indice'] ." / ". $jsonMove['maxTurn'] . " - URL : " .  $url);
     }

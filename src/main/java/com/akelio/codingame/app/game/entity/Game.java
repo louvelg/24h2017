@@ -12,7 +12,6 @@ import com.akelio.codingame.app.turn.entity.Turn;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Game extends BaseEntity {
-	
 
 	private String		gameId;
 	private String		name;
@@ -28,6 +27,8 @@ public class Game extends BaseEntity {
 	private int			maxTurn;
 
 	private List<Turn>	turnList;
+	private String		playerList;
+	private String		winnerName;
 
 	public Game() {
 		turnList = new ArrayList<>();
@@ -41,11 +42,10 @@ public class Game extends BaseEntity {
 
 		return false;
 	}
-	
+
 	public boolean isOver() {
-		return turnList!=null && turnList.size() >= maxTurn;
+		return turnList != null && turnList.size() >= maxTurn;
 	}
-	
 
 	public int setNextBotId(String botId) {
 		if (bot1Id == null) {
@@ -181,6 +181,7 @@ public class Game extends BaseEntity {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
 	public Map getMap() {
 		return map;
 	}
@@ -188,7 +189,7 @@ public class Game extends BaseEntity {
 	public void setMap(Map map) {
 		this.map = map;
 	}
-	
+
 	public int getMaxTurn() {
 		return maxTurn;
 	}
@@ -196,7 +197,22 @@ public class Game extends BaseEntity {
 	public void setMaxTurn(int maxTurn) {
 		this.maxTurn = maxTurn;
 	}
-	
+
+	public String getPlayerList() {
+		return playerList;
+	}
+
+	public void setPlayerList(String playerList) {
+		this.playerList = playerList;
+	}
+
+	public String getWinnerName() {
+		return winnerName;
+	}
+
+	public void setWinnerName(String winnerName) {
+		this.winnerName = winnerName;
+	}
 
 	@Override
 	public int hashCode() {

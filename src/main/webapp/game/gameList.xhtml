@@ -22,16 +22,42 @@
 				<div class="ibox">
 					<div class="ibox-content">
 						<p:dataTable value="#{b.gameList}" var="var" emptyMessage="#{message.empty_message}" styleClass="std-datatable">
-							<p:column>
+							<p:column width="50">
 								<f:facet name="header">
-									<h:outputText value="Dernières parties" />
+									<h:outputText value="ID" />
 								</f:facet>
 								<h:link outcome="pretty:viewGameDetails">
 									<f:param name="gameId" value="#{var.gameId}" />
-									<h:outputText value="#{var.gameId} - " />
+									<h:outputText value="#{var.gameId}" />
+								</h:link>
+							</p:column>
+							<p:column width="150" sortBy="#{var.dateCreated}">
+								<f:facet name="header">
+									<h:outputText value="Date" />
+								</f:facet>
+								<h:link outcome="pretty:viewGameDetails">
+									<f:param name="gameId" value="#{var.gameId}" />
 									<h:outputText value="#{var.dateCreated}">
 										<f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
 									</h:outputText>
+								</h:link>
+							</p:column>
+							<p:column width="250" sortBy="#{var.winnerName}">
+								<f:facet name="header">
+									<h:outputText value="Vainqueur" />
+								</f:facet>
+								<h:link outcome="pretty:viewGameDetails">
+									<f:param name="gameId" value="#{var.gameId}" />
+									<h:outputText value="#{var.winnerName}" />
+								</h:link>
+							</p:column>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Joueurs" />
+								</f:facet>
+								<h:link outcome="pretty:viewGameDetails">
+									<f:param name="gameId" value="#{var.gameId}" />
+									<h:outputText value="#{var.playerList}" />
 								</h:link>
 							</p:column>
 						</p:dataTable>

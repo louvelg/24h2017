@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Game extends BaseEntity {
 	
-	public static final int MAX_TURN = 100;
 
 	private String		gameId;
 	private String		name;
@@ -26,6 +25,7 @@ public class Game extends BaseEntity {
 	private String		status;
 	private String		currentBot;
 	private Map			map;
+	private int			maxTurn;
 
 	private List<Turn>	turnList;
 
@@ -43,7 +43,7 @@ public class Game extends BaseEntity {
 	}
 	
 	public boolean isOver() {
-		return turnList!=null && turnList.size()>MAX_TURN;
+		return turnList!=null && turnList.size()>maxTurn;
 	}
 	
 
@@ -188,6 +188,15 @@ public class Game extends BaseEntity {
 	public void setMap(Map map) {
 		this.map = map;
 	}
+	
+	public int getMaxTurn() {
+		return maxTurn;
+	}
+
+	public void setMaxTurn(int maxTurn) {
+		this.maxTurn = maxTurn;
+	}
+	
 
 	@Override
 	public int hashCode() {

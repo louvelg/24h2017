@@ -129,7 +129,9 @@ public class GameService extends BaseService {
 
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void createGame(User currentUser, Game game, String params) {
-		Map map = mapService.createMap(currentUser,params);
+		String[] paramsArray = handleParams(params);
+		game.setMaxTurn(toInt(paramsArray[0]));
+		Map map = mapService.createMap(currentUser,paramsArray);
 		game.setMapId(map.getMapId());
 		gameDAO.createGame(game);
 	}
@@ -142,6 +144,21 @@ public class GameService extends BaseService {
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void deleteGame(User currentUser, String gameId) {
 		gameDAO.deleteGame(gameId);
+	}
+	
+	
+	private String[] handleParams(String params) {
+		if(params.equals("no"))
+			params = "100-20-20-5-1-9-6";
+		return params.split("-");
+	}
+	
+	
+
+	
+	
+	private int toInt(String s) {
+		return Integer.parseInt(s);
 	}
 
 }

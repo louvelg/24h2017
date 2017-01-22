@@ -1,6 +1,7 @@
 package com.akelio.codingame.client.bots;
 
 import java.util.Map;
+import com.akelio.codingame.client.bots.Bot.DIR;
 import com.akelio.codingame.client.pathsearch.UtilPathSearch;
 import com.akelio.codingame.util.UtilBot;
 import com.akelio.codingame.util.UtilEngine;
@@ -27,8 +28,9 @@ public class Bot3 implements Bot {
 		sommes = UtilBot.findBestSommes(sommes,amounts);
 		
 		int[][] path = UtilPathSearch.perform(mePos, sommes, maze);
-		int[] nextPos = path[1];
+		if(path==null) return DIR.I;
 		
+		int[] nextPos = path[1];
 		return UtilBot.findNextDir(mePos, nextPos);
 	}
 
@@ -36,7 +38,7 @@ public class Bot3 implements Bot {
 	
 	
 	public String getId() {
-		return "2";
+		return "3";
 	}
 
 }

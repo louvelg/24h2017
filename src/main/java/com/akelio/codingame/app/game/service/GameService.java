@@ -96,7 +96,7 @@ public class GameService extends BaseService {
 		boolean created = turnService.createTurn(nextTurn);
 		if (created) {
 			game.getTurnList().add(nextTurn);
-			turnService.printTurn(nextTurn);
+//			turnService.printTurn(nextTurn);
 			
 			if(game.isOver()) {
 				game.setStatus("over");

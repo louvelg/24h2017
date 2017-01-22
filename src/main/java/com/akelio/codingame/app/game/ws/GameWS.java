@@ -54,9 +54,6 @@ public class GameWS extends BaseWS {
 		
 		int index = gameService.addNewBot(getUser(), gameId, botId);
 		
-		System.out.println("index="+index);
-		System.out.println("updateGame done");
-		
 		int nbRetry = 0;
 		Game game = gameService.findGameById(getUser(), gameId);
 		while (game.isPending() && nbRetry<50) {
@@ -70,7 +67,7 @@ public class GameWS extends BaseWS {
 		if (game.isPending()) {
 			System.out.println("time out");
 			Game g = new Game();
-			g.setStatus("ko : pas assez de joueur");
+			g.setStatus("timeout");
 			return g;
 		}
 		

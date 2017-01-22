@@ -69,6 +69,10 @@ public class GameService extends BaseService {
 	
 	public Game nextTurn(String gameId, String botName, String direction) {
 		Game game = findGameById(null, gameId);
+		if(game.isOver()) {
+			game.setStatus("over");
+			return game;
+		}
 		
 		String indice = ""+(game.getTurnList().size()+1);
 		System.out.println("Game : " + gameId + " Bot : " + botName +  " direction : " + direction + " Tour : " + indice );
@@ -96,7 +100,7 @@ public class GameService extends BaseService {
 		boolean created = turnService.createTurn(nextTurn);
 		if (created) {
 			game.getTurnList().add(nextTurn);
-			turnService.printTurn(nextTurn);
+//			turnService.printTurn(nextTurn);
 			
 			if(game.isOver()) {
 				game.setStatus("over");

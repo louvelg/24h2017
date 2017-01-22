@@ -28,8 +28,9 @@ public class BotEddy implements Bot {
 		int[] bestPos = sommes[bestIndex];
 		
 		int[][] path = UtilPathSearch.perform(mePos, bestPos, maze);
-		int[] nextPos = path[1];
+		if(path==null) return DIR.I;
 		
+		int[] nextPos = path[1];
 		return UtilBot.findNextDir(mePos, nextPos);
 	}
 
@@ -37,17 +38,17 @@ public class BotEddy implements Bot {
 	private int maxAmountIndex(int[] amounts) {
 		int max = 0;
 		int index = -1; 
-		
+
 		for(int i =0; i < amounts.length; i++) {
-			 if(amounts[i] > max) {
-				 max = amounts[i];
-				 index = i;
-			 }
-		 }
-		
+			if(amounts[i] > max) {
+				max = amounts[i];
+				index = i;
+			}
+		}
 		return index;
 	}
 	
+
 	public String getId() {
 		return "4";
 	}

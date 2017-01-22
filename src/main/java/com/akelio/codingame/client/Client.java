@@ -60,7 +60,7 @@ public class Client {
 		
 		boolean over = false;
 		
-		if(status!=null && status.startsWith("ko :")) {
+		if(status!=null && status.equals("timeout")) {
 			System.out.println();
 			System.out.println("GAME ABORTED : no enough player ....");
 			return;
@@ -94,6 +94,8 @@ public class Client {
 			
 			Thread.sleep(100);
 		}
+
+		System.out.println("Game status: "+status);
 	}
 
 

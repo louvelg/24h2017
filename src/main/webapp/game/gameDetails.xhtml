@@ -60,13 +60,24 @@
 						<div class="row">
 							<div class="col-lg-12">
 								<div>
-								
-									<p:commandLink onclick="stop();" action="#{b.firstTurn}" styleClass="btn btn-primary m-r-xs" update="map progress step players">Premier</p:commandLink>
-									<p:commandLink onclick="stop();" action="#{b.previousTurn}" styleClass="btn btn-primary m-r-xs" update="map progress step players">Précédent</p:commandLink>
-									<a onclick="play();" href="#" class="btn btn-primary m-r-xs">Play</a>
-									<a onclick="stop();" href="#" class="btn btn-primary m-r-xs">Stop</a>
-									<p:commandLink onclick="stop();"  action="#{b.nextTurn}" styleClass="btn btn-primary m-r-xs" update="map progress step players">Suivant</p:commandLink>
-									<p:commandLink onclick="stop();" action="#{b.lastTurn}" styleClass="btn btn-primary" update="map progress step players">Dernier</p:commandLink>
+									<p:commandLink onclick="stop();" action="#{b.firstTurn}" styleClass="btn btn-primary m-r-xs" update="map progress step players">
+										<i class="fa fa-backward" aria-hidden="true" style="margin-right: 5px !important;"></i> Premier
+									</p:commandLink>
+									<p:commandLink onclick="stop();" action="#{b.previousTurn}" styleClass="btn btn-primary m-r-xs" update="map progress step players">
+										<i class="fa fa-caret-left" aria-hidden="true" style="margin-right: 5px !important;"></i> Précédent
+									</p:commandLink>
+									<a onclick="play();" href="#" class="btn btn-primary m-r-xs">
+										<i class="fa fa-play" aria-hidden="true" style="margin-right: 5px !important;"></i> Play
+									</a>
+									<a onclick="stop();" href="#" class="btn btn-primary m-r-xs">
+										<i class="fa fa-stop" aria-hidden="true" style="margin-right: 5px !important;"></i> Stop
+									</a>
+									<p:commandLink onclick="stop();"  action="#{b.nextTurn}" styleClass="btn btn-primary m-r-xs" update="map progress step players">
+										Suivant <i class="fa fa-caret-right" aria-hidden="true" style="margin-left: 5px !important;"></i> 
+									</p:commandLink>
+									<p:commandLink onclick="stop();" action="#{b.lastTurn}" styleClass="btn btn-primary" update="map progress step players">
+										Dernier <i class="fa fa-forward" aria-hidden="true" style="margin-left: 5px !important;"></i> 
+									</p:commandLink>
 								</div>
 							</div>
 						</div>

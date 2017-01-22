@@ -1,5 +1,7 @@
 package com.akelio.codingame.app.game.view;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -30,6 +32,7 @@ public class GameDetailsView extends BaseView {
 	private boolean					hasNext;
 	private boolean					hasPrevious;
 	private int						lastIndice;
+	private String					percent;
 
 	@PostConstruct
 	public void init() {
@@ -45,6 +48,7 @@ public class GameDetailsView extends BaseView {
 		int height = Integer.valueOf(map.getHeight());
 		int width = Integer.valueOf(map.getWidth());
 
+		percent = buildPercentDisplay(lastIndice, turnIndice);
 		String data = null;
 
 		hasNext = game.getTurnList().size() > turnIndice;
@@ -79,6 +83,21 @@ public class GameDetailsView extends BaseView {
 		}
 		refreshListData();
 		return "";
+	}
+
+	public String buildPercentDisplay(int total, int finish) {
+		if (total == 0) return "1%";
+		double val = (Double.valueOf(finish) / Double.valueOf(total)) * 100;
+		return roundStringWithZeroDecimal(val) + "%";
+	}
+
+	private static String roundStringWithZeroDecimal(double val) {
+		try {
+			BigDecimal bd = new BigDecimal(val);
+			return "" + bd.setScale(0, RoundingMode.HALF_UP).intValue();
+		} catch (NumberFormatException e) {
+			return "" + val;
+		}
 	}
 
 	public Game getGame() {
@@ -127,6 +146,14 @@ public class GameDetailsView extends BaseView {
 
 	public void setLastIndice(int lastIndice) {
 		this.lastIndice = lastIndice;
+	}
+
+	public String getPercent() {
+		return percent;
+	}
+
+	public void setPercent(String percent) {
+		this.percent = percent;
 	}
 
 	public Logger getLogger() {

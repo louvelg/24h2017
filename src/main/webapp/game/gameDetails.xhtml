@@ -8,51 +8,102 @@
 	<ui:param name="selectedMenu" value="game" />
 	<ui:param name="b" value="#{gameDetailsView}" />
 	<ui:define name="content">
-		<h:form id="FormTitle">
-			<div class="row wrapper border-bottom white-bg page-heading">
-				<div class="col-lg-10">
-					<h1>
-						<h:outputText value="Partie : #{b.game.gameId}" />
-					</h1>
-				</div>
-				<div class="content-button col-lg-2">
-					<h:link outcome="pretty:viewGameList" styleClass="btn btn-white pull-right">
-						<i class="fa fa-arrow-left m-r-xs"></i>
-						<h:outputText value="#{message.back}" />
-					</h:link>
-				</div>
-			</div>
+		<h:form id="FormContent">
+			<p:remoteCommand name="refreshNext" action="#{b.nextTurn}" update=":FormContent" process="@this" />
 			<div class="wrapper wrapper-content">
 				<div class="ibox">
-					<div class="ibox-content">
-						<div>
-							<h:outputText value="Partie : #{b.game.gameId}" />
+					<div class="ibox-content  text-center">
+						<div class="row">
+							<div class="col-lg-12">
+								<div>
+									<h1>
+										<h:outputText value="Partie : #{b.game.gameId} - " />
+										<h:outputText value="#{b.game.dateCreated}">
+											<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+										</h:outputText>
+								<h:link outcome="pretty:viewGameList" styleClass="btn btn-white pull-right">
+									<i class="fa fa-arrow-left m-r-xs"></i>
+									<h:outputText value="#{message.back}" />
+								</h:link>
+									</h1>
+								</div>
+							</div>
 						</div>
-						<div>
-							<h:outputText value="Tour : #{b.turnIndice} / #{b.lastIndice}" />
+						<div class="row">
+							<div class="col-lg-12">
+								<div>
+									<h1>
+										<h:outputText value="Tour : #{b.turnIndice} / #{b.lastIndice}" />
+									</h1>
+								</div>
+							</div>
 						</div>
-						<div>
-							<h:outputText value="#{b.game.dateCreated}">
-								<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
-							</h:outputText>
+						<div class="row">
+							<div class="col-lg-12">
+									<div class="progress progress-striped active bg-white">
+						<div style="width: #{b.percent}" 
+							aria-valuemax=" #{b.lastIndice}" 
+							aria-valuemin="0" 
+							aria-valuenow="#{b.turnIndice} " 
+							role="progressbar"
+							class="progress-bar progress-bar-success">
 						</div>
-						<div>
-							<h:commandLink action="#{b.previousTurn}" styleClass="btn btn-primary">Précédent</h:commandLink>
-							<h:commandLink action="#{b.nextTurn}" styleClass="btn btn-primary">Suivant</h:commandLink>
+					</div>
+				</div></div>		
+						
+						<div class="row">
+							<div class="col-lg-12">
+								<div></div>
+							</div>
 						</div>
-						<div>
-							<p:dataList value="#{b.list}" var="var" type="none" rowIndexVar="ligne" id="ligne">
-								<div class="ligne" style="height: 20px !important;">
-									<p:dataList value="#{var}" var="cell" type="none" rowIndexVar="colonne" style="margin: 0px;padding: 0px;height: 15px; width: 15px">
-										<img src="#{facesContext.externalContext.requestContextPath}/resources/images/sprite_#{cell}.png" style="margin-right: -5px !important;" />
+						<div class="row">
+							<div class="col-lg-12">
+								<div>
+									<h:commandLink action="#{b.previousTurn}" styleClass="btn btn-primary m-r-xs">Précédent</h:commandLink>
+									<a onclick="play();" href="#" class="btn btn-primary m-r-xs">Play</a>
+									<a onclick="stop();" href="#" class="btn btn-primary m-r-xs">Stop</a>
+									<h:commandLink action="#{b.nextTurn}" styleClass="btn btn-primary">Suivant</h:commandLink>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-12 m-t-md">
+								<div>
+									<p:dataList value="#{b.list}" var="var" type="none" rowIndexVar="ligne" id="ligne">
+										<div class="ligne" style="height: 20px !important;">
+											<p:dataList value="#{var}" var="cell" type="none" rowIndexVar="colonne" style="margin: 0px;padding: 0px;height: 15px; width: 15px">
+												<img src="#{facesContext.externalContext.requestContextPath}/resources/images/sprite_#{cell}.png" style="margin-right: -5px !important;" />
+											</p:dataList>
+										</div>
 									</p:dataList>
 								</div>
-							</p:dataList>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</h:form>
+	</ui:define>
+
+	<ui:define name="beforeEndBody">
+		<script type="text/javascript">
+		var start = false;
+		var initializeStart = false;
+		function play() {
+			start = true;
+			if (!initializeStart) {
+				initializeStart = true;
+				setInterval(function() {
+					if (start) {
+						refreshNext();
+					}
+					}, 1000);
+				};
+			}
+		function stop() {
+			start = false;
+		}
+		</script>
 	</ui:define>
 </ui:composition>
 </html>
